@@ -114,7 +114,17 @@ function create_power_user
 	printf "${WHITE}"
 	read -p "   Username: " name
 	read -s -p "   Password: " password
-	echo "$name-power_user-$password" >> users.txt
+	
+	matched=0
+	while IFS='-' read user access pass; do
+		if [[ ( "$name" == "$user" || -z "$name" || -z "$pass" ) ]]; then
+			matched=1
+		fi
+	done < users.txt
+	
+	if [ "$matched" != 1 ]; then
+		echo "$name-power_user-$password" >> users.txt
+	fi
 }
 
 function create_general_user
@@ -125,7 +135,17 @@ function create_general_user
 	printf "${WHITE}"
 	read -p "   Username: " name
 	read -s -p "   Password: " password
-	echo "$name-general_user-$password" >> users.txt
+	
+	matched=0
+	while IFS='-' read user access pass; do
+		if [[ ( "$name" == "$user" || -z "$name" || -z "$pass" ) ]]; then
+			matched=1
+		fi
+	done < users.txt
+	
+	if [ "$matched" != 1 ]; then
+		echo "$name-general_user-$password" >> users.txt
+	fi
 }
 
 function list_users_and_types

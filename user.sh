@@ -10,7 +10,7 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
-YELLOW="\033[1;33m"
+YELLOW="\033[38;5;136m"
 WHITE="\033[1;37m"
 
 function print_menu_header 

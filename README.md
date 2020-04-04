@@ -2,7 +2,8 @@
 simply run ./login.sh in the terminal
 
 # Colors
-I added colors to the program to make it look better. Coloring seems to work natively on linux and on Windows using the windows subsystem for linux, but colors may need to be enabled on Macs to work properly. See below. This is what the program should look like. 
+I added colors to the program to make it look better. Coloring seems to work natively on linux and on Windows using the windows subsystem for linux, but colors may need to be enabled on Macs to work properly. See below. This is what the program should look like.
+
 ![color preview](color_preview.png)
 
 # Enable colors on Macs

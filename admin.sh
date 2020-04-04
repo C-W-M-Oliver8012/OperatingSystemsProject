@@ -2,14 +2,23 @@
 
 if [ ! -d "General_Files" ]; then
 	mkdir General_Files
+	> General_Files/test.txt
+	> General_Files/test1.txt
+	> General_Files/test2.txt
 fi
 
 if [ ! -d "Project_Files" ]; then
 	mkdir Project_Files
+	> Project_Files/test.txt
+	> Project_Files/test1.txt
+	> Project_Files/test2.txt
 fi
 
 if [ ! -d "Financial_Files" ]; then
 	mkdir Financial_Files
+	> Financial_Files/test.txt
+	> Financial_Files/test1.txt
+	> Financial_Files/test2.txt
 fi
 
 if [ ! -f "users.txt" ]; then
@@ -62,7 +71,7 @@ current_password=$(head -n 1 "users.txt")
 name=""
 password=""
 
-while [[ ( $input != 5 && "$current_password" != "admin-power_user-buasa" ) ]]; do
+while [[ ( $input != 6 && "$current_password" != "admin-power_user-buasa" ) ]]; do
 
 	print_menu_header
 	echo "   | You are admin: choose an option             |"
@@ -71,7 +80,8 @@ while [[ ( $input != 5 && "$current_password" != "admin-power_user-buasa" ) ]]; 
 	echo "   | 2) Create a new General User                |"
 	echo "   | 3) List Users                               |"
 	echo "   | 4) Delete Users                             |"
-	echo "   | 5) Log Out                                  |"
+	echo "   | 5) Open a Directory                         |"
+	echo "   | 6) Log Out                                  |"
 	echo "   ==============================================="
 	echo " "
 	read -p "   Option: " input
@@ -157,6 +167,10 @@ while [[ ( $input != 5 && "$current_password" != "admin-power_user-buasa" ) ]]; 
 		
 			rm tmp_users.txt
 		fi
+	fi
+	
+	if [ "$input" == 5 ]; then
+		./access.sh power_user
 	fi
 done
 

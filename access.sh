@@ -27,22 +27,25 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 	
 	if [ "$input" == 1 ]; then
 		clear
-		printf "\n   General Files\n"
-		printf " ${YELLOW}  ======================${WHITE}\n"
+		print_menu_header
+		printf "   | ${WHITE}General Files                               ${YELLOW}|\n"
+		printf "   ===============================================${WHITE}\n"
 		for entry in "General_Files"/*; do
 			printf "   $entry\n"
 		done
 	elif [ "$input" == 2 ]; then
 		clear
-		printf "\n   Project Files\n"
-		printf " ${YELLOW}  ======================${WHITE}\n"
+		print_menu_header
+		printf "   | ${WHITE}Project Files                               ${YELLOW}|\n"
+		printf "   ===============================================${WHITE}\n"
 		for entry in "Project_Files"/*; do
 			printf "   $entry\n"
 		done
 	elif [[ ( "$input" == 3 && "$1" == "power_user" ) ]]; then
 		clear
-		printf "\n   Financial Files\n"
-		printf " ${YELLOW}  ======================${WHITE}\n"
+		print_menu_header
+		printf "   | ${WHITE}Financial Files                             ${YELLOW}|\n"
+		printf "   ===============================================${WHITE}\n"
 		for entry in "Financial_Files"/*; do
 			printf "   $entry\n"
 		done

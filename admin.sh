@@ -66,7 +66,7 @@ function print_main_menu
 
 function prompt_admin_to_change_password
 {
-	while [[ ( $input != 1 && $input != 2 ) ]]; do
+	while [[ ( "$input" != 1 && "$input" != 2 ) ]]; do
 
 		print_menu_header
 		printf "   | ${WHITE}You are logged in as admin. The default     ${YELLOW}|\n"
@@ -81,7 +81,7 @@ function prompt_admin_to_change_password
 
 function get_new_password_for_admin
 {
-	if [ $input == 1 ]; then
+	if [ "$input" == 1 ]; then
 
 		print_menu_header
 		printf "   | ${WHITE}Please enter a new password!                ${YELLOW}|\n"
@@ -179,7 +179,7 @@ function delete_user
 	printf "${WHITE}"
 	read -p "   User to delete: " input
 	
-	if [ $input != 1 ]; then
+	if [ "$input" != 1 ]; then
 		i=1
 		while read line; do
 			if [ $input != $i ]; then
@@ -211,7 +211,7 @@ current_password=$(head -n 1 "users.txt")
 name=""
 password=""
 
-while [[ ( $input != 6 && "$current_password" != "admin-power_user-buasa" ) ]]; do
+while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]; do
 
 	print_menu_header
 	print_main_menu
@@ -234,4 +234,6 @@ while [[ ( $input != 6 && "$current_password" != "admin-power_user-buasa" ) ]]; 
 		./access.sh power_user
 	fi
 done
+
+
 

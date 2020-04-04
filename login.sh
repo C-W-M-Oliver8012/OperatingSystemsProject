@@ -13,6 +13,7 @@ in the main code below all of the functions.
 
 YELLOW="\033[38;5;136m"
 WHITE="\033[1;37m"
+DEFAULT="\033[0m"
 
 function run_admin_script_if_user_text_does_not_exit
 {
@@ -100,5 +101,5 @@ while [ $login != 2 ]; do
 	login_user_if_possible
 done
 
-printf "${WHITE}"
+printf "${DEFAULT}"
 echo " "

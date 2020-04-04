@@ -1,57 +1,54 @@
 #! /bin/bash
 
+YELLOW="\033[1;33m"
+WHITE="\033[1;37m"
+
 function print_menu_header 
 {
 	clear
 
-	echo " "
-	echo "   ==============================================="
-	echo "   | Welcome to the Bash User Access System      |"
-	echo "   ==============================================="
+	printf "\n${YELLOW}   ===============================================\n"
+	printf "   | ${WHITE}Welcome to the Bash User Access System      ${YELLOW}|\n"
+	printf "   ===============================================\n"
 }
 
 if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; then
 	print_menu_header
-	echo "   | 1) General Files                            |"
-	echo "   | 2) Project Files                            |"
+	printf "   | ${WHITE}1) General Files                            ${YELLOW}|\n"
+	printf "   | ${WHITE}2) Project Files                            ${YELLOW}|\n"
 	
 	if [ "$1" == "power_user" ]; then
-		echo "   | 3) Financial Files                          |"
+		printf "   | ${WHITE}3) Financial Files                          ${YELLOW}|\n"
 	fi
 	
-	echo "   ==============================================="
-	echo " "
-	
+	printf "   ===============================================\n\n"
+	printf "${WHITE}"
 	read -p "   Directory to Open: " input
 	
 	if [ "$input" == 1 ]; then
 		clear
-		echo " "
-		echo "   General Files"
-		echo "   ======================"
+		printf "\n   General Files\n"
+		printf " ${YELLOW}  ======================${WHITE}\n"
 		for entry in "General_Files"/*; do
-			echo "   $entry"
+			printf "   $entry\n"
 		done
 	elif [ "$input" == 2 ]; then
 		clear
-		echo " "
-		echo "   Project Files"
-		echo "   ======================"
+		printf "\n   Project Files\n"
+		printf " ${YELLOW}  ======================${WHITE}\n"
 		for entry in "Project_Files"/*; do
-			echo "   $entry"
+			printf "   $entry\n"
 		done
 	elif [[ ( "$input" == 3 && "$1" == "power_user" ) ]]; then
 		clear
-		echo " "
-		echo "   Financial Files"
-		echo "   ======================"
+		printf "\n   Financial Files\n"
+		printf " ${YELLOW}  ======================${WHITE}\n"
 		for entry in "Financial_Files"/*; do
-			echo "   $entry"
+			printf "   $entry\n"
 		done
 	fi
 	
-	echo " "
-	
+	printf "\n"
 	read -p "   Press enter to return to menu..." input
 fi
 

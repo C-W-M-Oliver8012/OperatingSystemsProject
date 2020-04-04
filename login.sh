@@ -11,6 +11,9 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
+YELLOW="\033[1;33m"
+WHITE="\033[1;37m"
+
 function run_admin_script_if_user_text_does_not_exit
 {
 	if [ ! -f "users.txt" ]; then
@@ -22,18 +25,16 @@ function print_menu_header
 {
 	clear
 
-	echo " "
-	echo "   ==============================================="
-	echo "   | Welcome to the Bash User Access System      |"
-	echo "   ==============================================="
+	printf "\n${YELLOW}   ===============================================\n"
+	printf "   |${WHITE} Welcome to the Bash User Access System      ${YELLOW}|\n"
+	printf "   ===============================================\n"
 }
 
 function print_menu
 {
-	echo "   | Please attempt to log in. Type 1 for user   |"
-	echo "   | and password to end program.                |"
-	echo "   ==============================================="
-	echo " "
+	printf "   ${YELLOW}| ${WHITE}Please attempt to log in. Type 1 for user   ${YELLOW}|\n"
+	printf "   ${YELLOW}| ${WHITE}and password to end program.                ${YELLOW}|\n"
+	printf "   ===============================================\n\n"
 }
 
 function attempt_login 
@@ -69,8 +70,10 @@ function check_if_user_wants_to_exit_program
 
 function prompt_and_get_username_and_password
 {
-	read -p "   Username: " username
-	read -s -p "   Password: " password
+	printf "${WHITE}   Username: "
+	read username
+	printf "   Password: "
+	read -s password
 }
 
 
@@ -97,4 +100,5 @@ while [ $login != 2 ]; do
 	login_user_if_possible
 done
 
+printf "${WHITE}"
 echo " "

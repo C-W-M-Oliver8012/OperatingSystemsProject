@@ -10,6 +10,9 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
+YELLOW="\033[1;33m"
+WHITE="\033[1;37m"
+
 function check_for_and_create_directories
 {
 	if [ ! -d "General_Files" ]; then
@@ -43,24 +46,22 @@ function print_menu_header
 {
 	clear
 
-	echo " "
-	echo "   ==============================================="
-	echo "   | Welcome to the Bash User Access System      |"
-	echo "   ==============================================="
+	printf "\n${YELLOW}   ===============================================\n"
+	printf "   | ${WHITE}Welcome to the Bash User Access System      ${YELLOW}|\n"
+	printf "   ===============================================\n"
 }
 
 function print_main_menu
 {
-	echo "   | You are admin: choose an option             |"
-	echo "   |                                             |"
-	echo "   | 1) Create a new Power User                  |"
-	echo "   | 2) Create a new General User                |"
-	echo "   | 3) List Users                               |"
-	echo "   | 4) Delete Users                             |"
-	echo "   | 5) Open a Directory                         |"
-	echo "   | 6) Log Out                                  |"
-	echo "   ==============================================="
-	echo " "
+	printf "   | ${WHITE}You are admin: choose an option             ${YELLOW}|\n"
+	printf "   |                                             |\n"
+	printf "   | ${WHITE}1) Create a new Power User                  ${YELLOW}|\n"
+	printf "   | ${WHITE}2) Create a new General User                ${YELLOW}|\n"
+	printf "   | ${WHITE}3) List Users                               ${YELLOW}|\n"
+	printf "   | ${WHITE}4) Delete Users                             ${YELLOW}|\n"
+	printf "   | ${WHITE}5) Open a Directory                         ${YELLOW}|\n"
+	printf "   | ${WHITE}6) Log Out                                  ${YELLOW}|\n"
+	printf "   ===============================================\n\n"
 }
 
 function prompt_admin_to_change_password
@@ -68,12 +69,12 @@ function prompt_admin_to_change_password
 	while [[ ( $input != 1 && $input != 2 ) ]]; do
 
 		print_menu_header
-		echo "   | You are logged in as admin. The default     |"
-		echo "   | password is 'buasa'. Press 1 to change the  |"
-		echo "   | password and 2 to quit the program.         |"
-		echo "   ==============================================="
-		echo " "
+		printf "   | ${WHITE}You are logged in as admin. The default     ${YELLOW}|\n"
+		printf "   | ${WHITE}password is 'buasa'. Press 1 to change the  ${YELLOW}|\n"
+		printf "   | ${WHITE}password and 2 to quit the program.         ${YELLOW}|\n"
+		printf "   ===============================================\n\n"
 
+		printf "${WHITE}"
 		read -p "   Option: " input
 	done
 }
@@ -83,9 +84,9 @@ function get_new_password_for_admin
 	if [ $input == 1 ]; then
 
 		print_menu_header
-		echo "   | Please enter a new password!                |"
-		echo "   ==============================================="
-		echo " "
+		printf "   | ${WHITE}Please enter a new password!                ${YELLOW}|\n"
+		printf "   ===============================================\n\n"
+		printf "${WHITE}"
 		read -s -p "   New Password: " password
 		echo "admin-power_user-$password" > users.txt
 	fi
@@ -108,9 +109,9 @@ function init_admin
 function create_power_user
 {
 	print_menu_header
-	echo "   | Enter Credentials for new Power User        |"
-	echo "   ==============================================="
-	echo " "
+	printf "   | ${WHITE}Enter Credentials for new Power User        ${YELLOW}|\n"
+	printf "   ===============================================\n\n"
+	printf "${WHITE}"
 	read -p "   Username: " name
 	read -s -p "   Password: " password
 	echo "$name-power_user-$password" >> users.txt
@@ -119,9 +120,9 @@ function create_power_user
 function create_general_user
 {
 	print_menu_header
-	echo "   | Enter Credentials for new General User      |"
-	echo "   ==============================================="
-	echo " "
+	printf "   | ${WHITE}Enter Credentials for new General User      ${YELLOW}|\n"
+	printf "   ===============================================\n\n"
+	printf "${WHITE}"
 	read -p "   Username: " name
 	read -s -p "   Password: " password
 	echo "$name-general_user-$password" >> users.txt
@@ -133,29 +134,29 @@ function list_users_and_types
 		
 	i=1
 	while IFS='-' read user access pass; do
-		printf "   | %2d) %-15s  - %-12s         |\n" $i $user $access
+		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" $i $user $access
 		i=$((i+1))
 	done < users.txt
 	
-	echo "   ==============================================="
-	echo " "
+	printf "   ===============================================\n\n"
+	printf "${WHITE}"
 	read -p "   Press enter to continue..." input
 }
 
 function delete_user
 {
 	print_menu_header
-	echo "   | Select user to delete                       |"
-	echo "   |                                             |"
+	printf "   | ${WHITE}Select user to delete                       ${YELLOW}|\n"
+	printf "   |                                             |\n"
 	
 	i=1
 	while IFS='-' read user access pass; do
-		printf "   | %2d) %-15s  - %-12s         |\n" $i $user $access
+		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" $i $user $access
 		i=$((i+1))
 	done < users.txt
 	
-	echo "   ==============================================="
-	echo " "
+	printf "   ===============================================\n\n"
+	printf "${WHITE}"
 	read -p "   User to delete: " input
 	
 	if [ $input != 1 ]; then
@@ -194,6 +195,7 @@ while [[ ( $input != 6 && "$current_password" != "admin-power_user-buasa" ) ]]; 
 
 	print_menu_header
 	print_main_menu
+	printf "${WHITE}"
 	read -p "   Option: " input
 
 	if [ "$input" == 1 ]; then

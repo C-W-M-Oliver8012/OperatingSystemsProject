@@ -10,24 +10,25 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
+YELLOW="\033[1;33m"
+WHITE="\033[1;37m"
+
 function print_menu_header 
 {
 	clear
 
-	echo " "
-	echo "   ==============================================="
-	echo "   | Welcome to the Bash User Access System      |"
-	echo "   ==============================================="
+	printf "\n${YELLOW}   ===============================================\n"
+	printf "   | ${WHITE}Welcome to the Bash User Access System      ${YELLOW}|\n"
+	printf "   ===============================================\n"
 }
 
 function print_menu
 {
-	echo "   | You have successfully logged in!            |"
-	echo "   | Unfortunately there are no supported        |"
-	echo "   | options at the moment. Press enter to       |"
-	echo "   | return to loggin screen.                    |"
-	echo "   ==============================================="
-	echo " "
+	printf "   | ${WHITE}You have successfully logged in!            ${YELLOW}|\n"
+	printf "   | ${WHITE}Unfortunately there are no supported        ${YELLOW}|\n"
+	printf "   | ${WHITE}options at the moment. Press enter to       ${YELLOW}|\n"
+	printf "   | ${WHITE}return to loggin screen.                    ${YELLOW}|\n"
+	printf "   ===============================================\n\n"
 }
 
 
@@ -38,4 +39,5 @@ for the program.
 
 print_menu_header
 print_menu
+printf "${WHITE}"
 read -p "   Press enter..."

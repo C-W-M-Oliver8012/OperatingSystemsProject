@@ -51,6 +51,7 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 			i=1
 			for entry in "Project_Files"/*; do
 				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$entry"
+				i=$((i+1))
 			done
 			printf "   ===============================================\n"
 			
@@ -62,6 +63,7 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 			i=1
 			for entry in "Financial_Files"/*; do
 				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$entry"
+				i=$((i+1))
 			done
 			printf "   ===============================================\n"
 		fi

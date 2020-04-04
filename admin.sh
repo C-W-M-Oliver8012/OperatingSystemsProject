@@ -108,34 +108,22 @@ function init_admin
 function create_power_user
 {
 	print_menu_header
-	echo "   | Enter username for new Power User           |"
+	echo "   | Enter Credentials for new Power User        |"
 	echo "   ==============================================="
 	echo " "
-	read -p "   Power User's username: " name
-
-
-	print_menu_header
-	echo "   | Enter default password for new Power User   |"
-	echo "   ==============================================="
-	echo " "
-	read -s -p "   Power User's default password: " password
+	read -p "   Username: " name
+	read -s -p "   Password: " password
 	echo "$name-power_user-$password" >> users.txt
 }
 
 function create_general_user
 {
 	print_menu_header
-	echo "   | Enter username for new General User         |"
+	echo "   | Enter Credentials for new General User      |"
 	echo "   ==============================================="
 	echo " "
-	read -p "   General User's username: " name
-
-
-	print_menu_header
-	echo "   | Enter default password for new General User |"
-	echo "   ==============================================="
-	echo " "
-	read -s -p "   General User's default password: " password
+	read -p "   Username: " name
+	read -s -p "   Password: " password
 	echo "$name-general_user-$password" >> users.txt
 }
 

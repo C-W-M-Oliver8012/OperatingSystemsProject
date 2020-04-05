@@ -12,8 +12,7 @@ in the main code below all of the functions.
 
 YELLOW="\033[38;5;136m"
 GREEN="\033[38;5;34m"
-WHITE="\033[38;5;254m"
-BACKGROUND="\033[48;5;232m"
+WHITE="\033[0m"
 DEFAULT="\033[0m"
 
 function check_for_and_create_directories
@@ -206,7 +205,6 @@ The following code is what is actually running
 for the program.
 '
 
-printf "${BACKGROUND}"
 
 check_for_and_create_directories
 init_admin
@@ -237,7 +235,6 @@ while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]
 	
 	elif [ "$input" == 5 ]; then
 		./access.sh "admin" "power_user"
-		printf "${BACKGROUND}"
 	fi
 done
 

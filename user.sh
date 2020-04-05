@@ -12,8 +12,7 @@ in the main code below all of the functions.
 
 YELLOW="\033[38;5;136m"
 GREEN="\033[38;5;34m"
-WHITE="\033[38;5;254m"
-BACKGROUND="\033[48;5;232m"
+WHITE="\033[0m"
 DEFAULT="\033[0m"
 
 
@@ -34,7 +33,6 @@ The following code is what is actually running
 for the program.
 '
 
-printf "${BACKGROUND}"
 
 input=""
 
@@ -46,7 +44,6 @@ while [ "$input" != 2 ]; do
 
 	if [ "$input" == 1 ]; then
 		./access.sh "$1" "$2"
-		printf "${BACKGROUND}"
 	fi
 done
 

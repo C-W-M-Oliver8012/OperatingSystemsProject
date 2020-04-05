@@ -13,15 +13,13 @@ in the main code below all of the functions.
 
 YELLOW="\033[38;5;136m"
 GREEN="\033[38;5;34m"
-WHITE="\033[38;5;254m"
-BACKGROUND="\033[48;5;232m"
+WHITE="\033[0m"
 DEFAULT="\033[0m"
 
 function run_admin_script_if_user_text_does_not_exit
 {
 	if [ ! -f "users.txt" ]; then
 		./admin.sh
-		printf "${BACKGROUND}"
 	fi
 }
 
@@ -59,10 +57,8 @@ function login_user_if_possible
 		IFS='-' read admin_user admin_access admin_pass <<< "$admin_str"
 		if [[ ( "$username" = "$admin_user" && "$password" = "$admin_pass" ) ]]; then
 			./admin.sh
-			printf "${BACKGROUND}"
 		else
 			./user.sh "$username" "$priv"
-			printf "${BACKGROUND}"
 		fi
 	fi
 }
@@ -88,7 +84,6 @@ The following code is what is actually running
 for the program.
 '
 
-printf "${BACKGROUND}"
 
 run_admin_script_if_user_text_does_not_exit
 

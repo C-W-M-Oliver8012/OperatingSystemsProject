@@ -2,8 +2,7 @@
 
 YELLOW="\033[38;5;136m"
 GREEN="\033[38;5;34m"
-WHITE="\033[38;5;254m"
-BACKGROUND="\033[48;5;232m"
+WHITE="\033[0m"
 DEFAULT="\033[0m"
 
 function print_menu_header 
@@ -15,7 +14,6 @@ function print_menu_header
 	printf "   ===============================================\n"
 }
 
-printf "${BACKGROUND}"
 
 if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; then
 

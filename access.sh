@@ -1,8 +1,9 @@
 #! /bin/bash
 
-YELLOW="\033[1;38;5;136m"
-GREEN="\033[38;5;34m"
-WHITE="\033[0m"
+YELLOW="\033[1;38;5;136;48;5;234m"
+GREEN="\033[0;38;5;34;48;5;234m"
+WHITE="\033[0;38;5;254;48;5;234m"
+BACKGROUND="\033[48;5;234m"
 DEFAULT="\033[0m"
 
 function print_menu_header 
@@ -13,6 +14,8 @@ function print_menu_header
 	printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
 	printf "   ===============================================\n"
 }
+
+printf "${BACKGROUND}"
 
 
 if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; then

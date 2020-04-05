@@ -11,15 +11,17 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
-YELLOW="\033[1;38;5;136m"
-WHITE="\033[1;37m"
-BACKGROUND="\033[1;40m"
+YELLOW="\033[38;5;136m"
+GREEN="\033[38;5;34m"
+WHITE="\033[38;5;254m"
+BACKGROUND="\033[48;5;236m"
 DEFAULT="\033[0m"
 
 function run_admin_script_if_user_text_does_not_exit
 {
 	if [ ! -f "users.txt" ]; then
 		./admin.sh
+		printf "${BACKGROUND}"
 	fi
 }
 
@@ -34,8 +36,8 @@ function print_menu_header
 
 function print_menu
 {
-	printf "   |  ${WHITE}Please attempt to log in. Type 1 for user  ${YELLOW}|\n"
-	printf "   |  ${WHITE}and password to end program.               ${YELLOW}|\n"
+	printf "   |  ${GREEN}Login Screen: ${WHITE}To end program enter 1 for   ${YELLOW}|\n"
+	printf "   |  ${WHITE}username and password.                     ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
 }
 
@@ -57,8 +59,10 @@ function login_user_if_possible
 		IFS='-' read admin_user admin_access admin_pass <<< "$admin_str"
 		if [[ ( "$username" = "$admin_user" && "$password" = "$admin_pass" ) ]]; then
 			./admin.sh
+			printf "${BACKGROUND}"
 		else
 			./user.sh "$username" "$priv"
+			printf "${BACKGROUND}"
 		fi
 	fi
 }
@@ -72,9 +76,10 @@ function check_if_user_wants_to_exit_program
 
 function prompt_and_get_username_and_password
 {
-	printf "${WHITE}"
-	read -p "   Username: " username
-	read -s -p "   Password: " password
+	printf "${WHITE}   Username: ${WHITE}"
+	read username
+	printf "${WHITE}   Password: ${WHITE}"
+	read -s password
 }
 
 

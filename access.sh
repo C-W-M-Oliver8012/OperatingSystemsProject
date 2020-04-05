@@ -1,28 +1,29 @@
 #! /bin/bash
 
 YELLOW="\033[38;5;136m"
-WHITE="\033[1;37m"
+GREEN="\033[38;5;34m"
+WHITE="\033[38;5;254m"
+BACKGROUND="\033[48;5;236m"
+DEFAULT="\033[0m"
 
 function print_menu_header 
 {
 	clear
 
 	printf "\n${YELLOW}   ===============================================\n"
-	printf "   |  ${WHITE}Welcome to the Bash User Access System     ${YELLOW}|\n"
+	printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
 	printf "   ===============================================\n"
-	printf "   |  ${WHITE}Hello %-36s ${YELLOW}|\n" "$1"
-	printf "   |  ${WHITE}You are logged in as a %-19s ${YELLOW}|\n" "$2"
 }
+
+printf "${BACKGROUND}"
 
 if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; then
 
 	while [[ ( "$2" == "power_user" && "$input" != 4 ) || ( "$2" == "general_user" && "$input" != 3 ) ]]; do
 		
 		print_menu_header "$1" "$2"
+		printf "   |  ${WHITE}Directory Options                          ${YELLOW}|\n"
 		printf "   |                                             |\n"
-		printf "   |  ${WHITE}These are the directory options for your   ${YELLOW}|\n"
-		printf "   |  ${WHITE}privilege level.                           ${YELLOW}|\n"
-		printf "   ===============================================\n"
 		printf "   |  ${WHITE}1) General Files                           ${YELLOW}|\n"
 		printf "   |  ${WHITE}2) Project Files                           ${YELLOW}|\n"
 		
@@ -34,15 +35,14 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 		fi
 		
 		printf "   ===============================================\n\n"
-		printf "${WHITE}"
-		read -p "   Directory Option: " input
+		printf "${WHITE}   Option: ${WHITE}"
+		read input
 		
 		if [ "$input" == 1 ]; then
 			clear
 			print_menu_header "$1" "$2"
-			printf "   |                                             |\n"
 			printf "   |  ${WHITE}General Files                              ${YELLOW}|\n"
-			printf "   ===============================================\n"
+			printf "   |                                             |\n"
 			i=1
 			for entry in "General_Files"/*; do
 				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$entry"
@@ -53,9 +53,8 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 		elif [ "$input" == 2 ]; then
 			clear
 			print_menu_header "$1" "$2"
-			printf "   |                                             |\n"
 			printf "   |  ${WHITE}Project Files                              ${YELLOW}|\n"
-			printf "   ===============================================\n"
+			printf "   |                                             |\n"
 			i=1
 			for entry in "Project_Files"/*; do
 				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$entry"
@@ -66,9 +65,8 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 		elif [[ ( "$input" == 3 && "$2" == "power_user" ) ]]; then
 			clear
 			print_menu_header "$1" "$2"
-			printf "   |                                             |\n"
 			printf "   |  ${WHITE}Financial Files                            ${YELLOW}|\n"
-			printf "   ===============================================\n"
+			printf "   |                                             |\n"
 			i=1
 			for entry in "Financial_Files"/*; do
 				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$entry"
@@ -78,12 +76,14 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 		fi
 		
 		if [[ ( "$input" == 1 || "$input" == 2 ) || ( "$input" == 3 && "$2" == "power_user" ) ]]; then
-			printf "${WHITE}\n"
-			read -p "   Press enter to return to menu..." input
+			printf "\n${WHITE}   Press enter to return to menu...${WHITE}"
+			read input
 		fi
 		
 	done
 
 fi
+
+printf "${DEFAULT}"
 
 

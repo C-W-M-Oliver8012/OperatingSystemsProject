@@ -11,7 +11,10 @@ in the main code below all of the functions.
 '
 
 YELLOW="\033[38;5;136m"
-WHITE="\033[1;37m"
+GREEN="\033[38;5;34m"
+WHITE="\033[38;5;254m"
+BACKGROUND="\033[48;5;236m"
+DEFAULT="\033[0m"
 
 function check_for_and_create_directories
 {
@@ -47,14 +50,12 @@ function print_menu_header
 	clear
 
 	printf "\n${YELLOW}   ===============================================\n"
-	printf "   |  ${WHITE}Welcome to the Bash User Access System     ${YELLOW}|\n"
+	printf "   |  ${GREEN}admin                                      ${YELLOW}|\n"
 	printf "   ===============================================\n"
 }
 
 function print_main_menu
 {
-	printf "   |  ${WHITE}You are admin: choose an option            ${YELLOW}|\n"
-	printf "   |                                             |\n"
 	printf "   |  ${WHITE}1) Create a new Power User                 ${YELLOW}|\n"
 	printf "   |  ${WHITE}2) Create a new General User               ${YELLOW}|\n"
 	printf "   |  ${WHITE}3) List Users                              ${YELLOW}|\n"
@@ -74,8 +75,8 @@ function prompt_admin_to_change_password
 		printf "   |  ${WHITE}password and 2 to logout.                  ${YELLOW}|\n"
 		printf "   ===============================================\n\n"
 
-		printf "${WHITE}"
-		read -p "   Option: " input
+		printf "${WHITE}   Option: ${WHITE}"
+		read input
 	done
 }
 
@@ -86,8 +87,8 @@ function get_new_password_for_admin
 		print_menu_header
 		printf "   |  ${WHITE}Please enter a new password!               ${YELLOW}|\n"
 		printf "   ===============================================\n\n"
-		printf "${WHITE}"
-		read -s -p "   New Password: " password
+		printf "${WHITE}   New Password: ${WHITE}"
+		read -s password
 		echo "admin-power_user-$password" > users.txt
 	fi
 }
@@ -111,9 +112,10 @@ function create_power_user
 	print_menu_header
 	printf "   |  ${WHITE}Enter Credentials for new Power User       ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
-	printf "${WHITE}"
-	read -p "   Username: " name
-	read -s -p "   Password: " password
+	printf "${WHITE}   Username: ${WHITE}"
+	read name
+	printf "${WHITE}   Password: ${WHITE}"
+	read -s password
 	
 	matched=0
 	while IFS='-' read user access pass; do
@@ -132,9 +134,10 @@ function create_general_user
 	print_menu_header
 	printf "   |  ${WHITE}Enter Credentials for new General User     ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
-	printf "${WHITE}"
-	read -p "   Username: " name
-	read -s -p "   Password: " password
+	printf "${WHITE}   Username: ${WHITE}"
+	read name
+	printf "${WHITE}   Password: ${WHITE}"
+	read -s password
 	
 	matched=0
 	while IFS='-' read user access pass; do
@@ -159,8 +162,8 @@ function list_users_and_types
 	done < users.txt
 	
 	printf "   ===============================================\n\n"
-	printf "${WHITE}"
-	read -p "   Press enter to continue..." input
+	printf "${WHITE}   Press enter to continue...${WHITE}"
+	read input
 }
 
 function delete_user
@@ -176,8 +179,8 @@ function delete_user
 	done < users.txt
 	
 	printf "   ===============================================\n\n"
-	printf "${WHITE}"
-	read -p "   User to delete: " input
+	printf "${WHITE}   User to delete: ${WHITE}"
+	read input
 	
 	if [[ ( "$input" != 1 && ! -z "$input" ) ]]; then
 		i=1
@@ -203,6 +206,8 @@ The following code is what is actually running
 for the program.
 '
 
+printf "${BACKGROUND}"
+
 check_for_and_create_directories
 init_admin
 
@@ -215,8 +220,8 @@ while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]
 
 	print_menu_header
 	print_main_menu
-	printf "${WHITE}"
-	read -p "   Option: " input
+	printf "${WHITE}   Option: ${WHITE}"
+	read input
 
 	if [ "$input" == 1 ]; then
 		create_power_user
@@ -232,8 +237,9 @@ while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]
 	
 	elif [ "$input" == 5 ]; then
 		./access.sh "admin" "power_user"
+		printf "${BACKGROUND}"
 	fi
 done
 
-
+printf "${DEFAULT}"
 

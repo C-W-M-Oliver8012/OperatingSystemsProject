@@ -19,6 +19,7 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 	while [[ ( "$2" == "power_user" && "$input" != 4 ) || ( "$2" == "general_user" && "$input" != 3 ) ]]; do
 		
 		print_menu_header "$1" "$2"
+		printf "   |                                             |\n"
 		printf "   |  ${WHITE}These are the directory options for your   ${YELLOW}|\n"
 		printf "   |  ${WHITE}privilege level.                           ${YELLOW}|\n"
 		printf "   ===============================================\n"

@@ -47,20 +47,20 @@ function print_menu_header
 	clear
 
 	printf "\n${YELLOW}   ===============================================\n"
-	printf "   | ${WHITE}Welcome to the Bash User Access System      ${YELLOW}|\n"
+	printf "   |  ${WHITE}Welcome to the Bash User Access System     ${YELLOW}|\n"
 	printf "   ===============================================\n"
 }
 
 function print_main_menu
 {
-	printf "   | ${WHITE}You are admin: choose an option             ${YELLOW}|\n"
+	printf "   |  ${WHITE}You are admin: choose an option            ${YELLOW}|\n"
 	printf "   |                                             |\n"
-	printf "   | ${WHITE}1) Create a new Power User                  ${YELLOW}|\n"
-	printf "   | ${WHITE}2) Create a new General User                ${YELLOW}|\n"
-	printf "   | ${WHITE}3) List Users                               ${YELLOW}|\n"
-	printf "   | ${WHITE}4) Delete Users                             ${YELLOW}|\n"
-	printf "   | ${WHITE}5) Open a Directory                         ${YELLOW}|\n"
-	printf "   | ${WHITE}6) Log Out                                  ${YELLOW}|\n"
+	printf "   |  ${WHITE}1) Create a new Power User                 ${YELLOW}|\n"
+	printf "   |  ${WHITE}2) Create a new General User               ${YELLOW}|\n"
+	printf "   |  ${WHITE}3) List Users                              ${YELLOW}|\n"
+	printf "   |  ${WHITE}4) Delete Users                            ${YELLOW}|\n"
+	printf "   |  ${WHITE}5) Open a Directory                        ${YELLOW}|\n"
+	printf "   |  ${WHITE}6) Log Out                                 ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
 }
 
@@ -69,9 +69,9 @@ function prompt_admin_to_change_password
 	while [[ ( "$input" != 1 && "$input" != 2 ) ]]; do
 
 		print_menu_header
-		printf "   | ${WHITE}You are logged in as admin. The default     ${YELLOW}|\n"
-		printf "   | ${WHITE}password is 'buasa'. Press 1 to change the  ${YELLOW}|\n"
-		printf "   | ${WHITE}password and 2 to quit the program.         ${YELLOW}|\n"
+		printf "   |  ${WHITE}You are logged in as admin. The default    ${YELLOW}|\n"
+		printf "   |  ${WHITE}password is 'buasa'. Press 1 to change the ${YELLOW}|\n"
+		printf "   |  ${WHITE}password and 2 to quit the program.        ${YELLOW}|\n"
 		printf "   ===============================================\n\n"
 
 		printf "${WHITE}"
@@ -84,7 +84,7 @@ function get_new_password_for_admin
 	if [ "$input" == 1 ]; then
 
 		print_menu_header
-		printf "   | ${WHITE}Please enter a new password!                ${YELLOW}|\n"
+		printf "   |  ${WHITE}Please enter a new password!               ${YELLOW}|\n"
 		printf "   ===============================================\n\n"
 		printf "${WHITE}"
 		read -s -p "   New Password: " password
@@ -109,7 +109,7 @@ function init_admin
 function create_power_user
 {
 	print_menu_header
-	printf "   | ${WHITE}Enter Credentials for new Power User        ${YELLOW}|\n"
+	printf "   |  ${WHITE}Enter Credentials for new Power User       ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
 	printf "${WHITE}"
 	read -p "   Username: " name
@@ -130,7 +130,7 @@ function create_power_user
 function create_general_user
 {
 	print_menu_header
-	printf "   | ${WHITE}Enter Credentials for new General User      ${YELLOW}|\n"
+	printf "   |  ${WHITE}Enter Credentials for new General User     ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
 	printf "${WHITE}"
 	read -p "   Username: " name
@@ -154,7 +154,7 @@ function list_users_and_types
 		
 	i=1
 	while IFS='-' read user access pass; do
-		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" $i $user $access
+		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" "$i" "$user" "$access"
 		i=$((i+1))
 	done < users.txt
 	
@@ -166,12 +166,12 @@ function list_users_and_types
 function delete_user
 {
 	print_menu_header
-	printf "   | ${WHITE}Select user to delete                       ${YELLOW}|\n"
+	printf "   |  ${WHITE}Select user to delete                      ${YELLOW}|\n"
 	printf "   |                                             |\n"
 	
 	i=1
 	while IFS='-' read user access pass; do
-		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" $i $user $access
+		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" "$i" "$user" "$access"
 		i=$((i+1))
 	done < users.txt
 	
@@ -179,7 +179,7 @@ function delete_user
 	printf "${WHITE}"
 	read -p "   User to delete: " input
 	
-	if [ "$input" != 1 ]; then
+	if [[ ( "$input" != 1 && ! -z "$input" ) ]]; then
 		i=1
 		while read line; do
 			if [ $input != $i ]; then
@@ -231,7 +231,7 @@ while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]
 		delete_user
 	
 	elif [ "$input" == 5 ]; then
-		./access.sh power_user
+		./access.sh "admin" "power_user"
 	fi
 done
 

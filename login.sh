@@ -28,14 +28,14 @@ function print_menu_header
 	clear
 
 	printf "\n${YELLOW}   ===============================================\n"
-	printf "   |${WHITE} Welcome to the Bash User Access System      ${YELLOW}|\n"
+	printf "   |  ${WHITE}Welcome to the Bash User Access System     ${YELLOW}|\n"
 	printf "   ===============================================\n"
 }
 
 function print_menu
 {
-	printf "   ${YELLOW}| ${WHITE}Please attempt to log in. Type 1 for user   ${YELLOW}|\n"
-	printf "   ${YELLOW}| ${WHITE}and password to end program.                ${YELLOW}|\n"
+	printf "   |  ${WHITE}Please attempt to log in. Type 1 for user  ${YELLOW}|\n"
+	printf "   |  ${WHITE}and password to end program.               ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
 }
 
@@ -58,7 +58,7 @@ function login_user_if_possible
 		if [[ ( "$username" = "$admin_user" && "$password" = "$admin_pass" ) ]]; then
 			./admin.sh
 		else
-			./user.sh
+			./user.sh "$username" "$priv"
 		fi
 	fi
 }

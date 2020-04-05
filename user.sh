@@ -18,16 +18,19 @@ function print_menu_header
 	clear
 
 	printf "\n${YELLOW}   ===============================================\n"
-	printf "   | ${WHITE}Welcome to the Bash User Access System      ${YELLOW}|\n"
+	printf "   |  ${WHITE}Welcome to the Bash User Access System     ${YELLOW}|\n"
 	printf "   ===============================================\n"
 }
 
 function print_menu
 {
-	printf "   | ${WHITE}You have successfully logged in!            ${YELLOW}|\n"
-	printf "   | ${WHITE}Unfortunately there are no supported        ${YELLOW}|\n"
-	printf "   | ${WHITE}options at the moment. Press enter to       ${YELLOW}|\n"
-	printf "   | ${WHITE}return to loggin screen.                    ${YELLOW}|\n"
+	printf "   |  ${WHITE}Hello %-36s ${YELLOW}|\n" "$1"
+	printf "   |  ${WHITE}You are logged in as a %-19s ${YELLOW}|\n" "$2"
+	printf "   |                                             |\n"
+	printf "   |  ${WHITE}What would you like to do?                 ${YELLOW}|\n"
+	printf "   ===============================================\n"
+	printf "   |  ${WHITE}1) Open a directory                        ${YELLOW}|\n"
+	printf "   |  ${WHITE}2) Log Out                                 ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
 }
 
@@ -37,7 +40,18 @@ The following code is what is actually running
 for the program.
 '
 
-print_menu_header
-print_menu
-printf "${WHITE}"
-read -p "   Press enter..."
+input=""
+
+while [ "$input" != 2 ]; do
+
+	print_menu_header
+	print_menu "$1" "$2"
+	printf "${WHITE}"
+	read -p "   Option: " input
+
+	if [ "$input" == 1 ]; then
+		./access.sh "$1" "$2"
+	fi
+done
+
+

@@ -3,7 +3,7 @@
 YELLOW="\033[38;5;136m"
 GREEN="\033[38;5;34m"
 WHITE="\033[38;5;254m"
-BACKGROUND="\033[48;5;234m"
+BACKGROUND="\033[48;5;232m"
 DEFAULT="\033[0m"
 
 function print_menu_header 

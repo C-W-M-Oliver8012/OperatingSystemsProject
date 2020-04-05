@@ -60,7 +60,7 @@ function print_main_menu
 	printf "   |  ${WHITE}3) List Users                              ${YELLOW}|\n"
 	printf "   |  ${WHITE}4) Delete Users                            ${YELLOW}|\n"
 	printf "   |  ${WHITE}5) Open a Directory                        ${YELLOW}|\n"
-	printf "   |  ${WHITE}6) Log Out                                 ${YELLOW}|\n"
+	printf "   |  ${WHITE}6) Logout                                  ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
 }
 
@@ -71,7 +71,7 @@ function prompt_admin_to_change_password
 		print_menu_header
 		printf "   |  ${WHITE}You are logged in as admin. The default    ${YELLOW}|\n"
 		printf "   |  ${WHITE}password is 'buasa'. Press 1 to change the ${YELLOW}|\n"
-		printf "   |  ${WHITE}password and 2 to quit the program.        ${YELLOW}|\n"
+		printf "   |  ${WHITE}password and 2 to logout.                  ${YELLOW}|\n"
 		printf "   ===============================================\n\n"
 
 		printf "${WHITE}"

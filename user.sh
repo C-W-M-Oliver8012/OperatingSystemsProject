@@ -30,7 +30,7 @@ function print_menu
 	printf "   |  ${WHITE}What would you like to do?                 ${YELLOW}|\n"
 	printf "   ===============================================\n"
 	printf "   |  ${WHITE}1) Open a directory                        ${YELLOW}|\n"
-	printf "   |  ${WHITE}2) Log Out                                 ${YELLOW}|\n"
+	printf "   |  ${WHITE}2) Logout                                  ${YELLOW}|\n"
 	printf "   ===============================================\n\n"
 }
 

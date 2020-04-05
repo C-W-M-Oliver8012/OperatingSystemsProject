@@ -1,6 +1,6 @@
 #! /bin/bash
 
-YELLOW="\033[38;5;136m"
+YELLOW="\033[1;38;5;136m"
 GREEN="\033[38;5;34m"
 WHITE="\033[0m"
 DEFAULT="\033[0m"

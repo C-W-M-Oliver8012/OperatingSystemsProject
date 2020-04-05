@@ -14,7 +14,7 @@ in the main code below all of the functions.
 YELLOW="\033[38;5;136m"
 GREEN="\033[38;5;34m"
 WHITE="\033[38;5;254m"
-BACKGROUND="\033[48;5;236m"
+BACKGROUND="\033[48;5;234m"
 DEFAULT="\033[0m"
 
 function run_admin_script_if_user_text_does_not_exit

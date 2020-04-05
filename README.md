@@ -9,7 +9,7 @@ The first time the program is ran, you will automatically be logged in as admin 
 * User abilities
 * Access system
 
-The only things that needs functionality added to it is the access.sh file and the user.sh file. The access.sh file gives the user the ability to open directories and files, create files, and delete files based on privilege, and the user.sh file is what controls the user menu. The ability of the user to change the default password needs to be added.
+The only things that needs functionality added to it are the access.sh file and the user.sh file. The access.sh file gives the user the ability to open directories and files, create files, and delete files based on privilege, and the user.sh file is what controls the user menu. The ability of the user to change the default password needs to be added.
 
 # Colors
 I added colors to the program to make it look better. Coloring seems to work natively on linux and on Windows using the windows subsystem for linux, but colors may need to be enabled on Macs to work properly. See below. This is what the program should look like.

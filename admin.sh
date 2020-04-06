@@ -10,10 +10,10 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
-YELLOW="\033[1;38;5;136;48;5;234m"
-GREEN="\033[0;38;5;34;48;5;234m"
-WHITE="\033[0;38;5;254;48;5;234m"
-BACKGROUND="\033[48;5;234m"
+YELLOW="\033[1;38;5;136;48;5;236m"
+GREEN="\033[1;38;5;34;48;5;236m"
+WHITE="\033[0;38;5;253;48;5;236m"
+BACKGROUND="\033[48;5;236m"
 DEFAULT="\033[0m"
 
 function check_for_and_create_directories

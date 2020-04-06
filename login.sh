@@ -1,7 +1,7 @@
 #! /bin/bash
 
 : '
-This program controls the login system for the 
+This program controls the login system for the
 bash user access system
 '
 
@@ -11,10 +11,10 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
-YELLOW="\033[1;38;5;136;48;5;236m"
-GREEN="\033[1;38;5;34;48;5;236m"
-WHITE="\033[0;38;5;253;48;5;236m"
-BACKGROUND="\033[48;5;236m"
+YELLOW="\033[1;38;5;136;48;5;234m"
+GREEN="\033[1;38;5;34;48;5;234m"
+WHITE="\033[0;38;5;253;48;5;234m"
+BACKGROUND="\033[48;5;234m"
 DEFAULT="\033[0m"
 
 function run_admin_script_if_user_text_does_not_exit
@@ -25,7 +25,7 @@ function run_admin_script_if_user_text_does_not_exit
 	fi
 }
 
-function print_menu_header 
+function print_menu_header
 {
 	clear
 
@@ -41,7 +41,7 @@ function print_menu
 	printf "   ===============================================\n\n"
 }
 
-function attempt_login 
+function attempt_login
 {
 	while IFS='-' read user access pass; do
 		if [[ ( "$1" == "$user" && "$2" == "$pass" ) ]]; then
@@ -110,4 +110,3 @@ done
 
 printf "${DEFAULT}"
 clear
-

@@ -10,10 +10,10 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
-YELLOW="\033[1;38;5;136;48;5;236m"
-GREEN="\033[1;38;5;34;48;5;236m"
-WHITE="\033[0;38;5;253;48;5;236m"
-BACKGROUND="\033[48;5;236m"
+YELLOW="\033[1;38;5;136;48;5;234m"
+GREEN="\033[1;38;5;34;48;5;234m"
+WHITE="\033[0;38;5;253;48;5;234m"
+BACKGROUND="\033[48;5;234m"
 DEFAULT="\033[0m"
 
 function check_for_and_create_directories
@@ -45,7 +45,7 @@ function check_for_and_create_directories
 	fi
 }
 
-function print_menu_header 
+function print_menu_header
 {
 	clear
 
@@ -116,14 +116,14 @@ function create_power_user
 	read name
 	printf "${WHITE}   Password: ${WHITE}"
 	read -s password
-	
+
 	matched=0
 	while IFS='-' read user access pass; do
 		if [[ ( "$name" == "$user" || -z "$name" || -z "$pass" ) ]]; then
 			matched=1
 		fi
 	done < users.txt
-	
+
 	if [ "$matched" != 1 ]; then
 		echo "$name-power_user-$password" >> users.txt
 	fi
@@ -138,14 +138,14 @@ function create_general_user
 	read name
 	printf "${WHITE}   Password: ${WHITE}"
 	read -s password
-	
+
 	matched=0
 	while IFS='-' read user access pass; do
 		if [[ ( "$name" == "$user" || -z "$name" || -z "$pass" ) ]]; then
 			matched=1
 		fi
 	done < users.txt
-	
+
 	if [ "$matched" != 1 ]; then
 		echo "$name-general_user-$password" >> users.txt
 	fi
@@ -154,13 +154,13 @@ function create_general_user
 function list_users_and_types
 {
 	print_menu_header
-		
+
 	i=1
 	while IFS='-' read user access pass; do
 		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" "$i" "$user" "$access"
 		i=$((i+1))
 	done < users.txt
-	
+
 	printf "   ===============================================\n\n"
 	printf "${WHITE}   Press enter to continue...${WHITE}"
 	read input
@@ -171,17 +171,17 @@ function delete_user
 	print_menu_header
 	printf "   |  ${WHITE}Select user to delete                      ${YELLOW}|\n"
 	printf "   |                                             |\n"
-	
+
 	i=1
 	while IFS='-' read user access pass; do
 		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" "$i" "$user" "$access"
 		i=$((i+1))
 	done < users.txt
-	
+
 	printf "   ===============================================\n\n"
 	printf "${WHITE}   User to delete: ${WHITE}"
 	read input
-	
+
 	if [[ ( "$input" != 1 && ! -z "$input" ) ]]; then
 		i=1
 		while read line; do
@@ -190,12 +190,12 @@ function delete_user
 			fi
 			i=$((i+1))
 		done < users.txt
-	
+
 		rm users.txt
 		while read line; do
 			echo $line >> users.txt
 		done < tmp_users.txt
-	
+
 		rm tmp_users.txt
 	fi
 }
@@ -225,16 +225,16 @@ while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]
 
 	if [ "$input" == 1 ]; then
 		create_power_user
-		
+
 	elif [ "$input" == 2 ]; then
 		create_general_user
-		
+
 	elif [ "$input" == 3 ]; then
 		list_users_and_types
-		
+
 	elif [ "$input" == 4 ]; then
 		delete_user
-	
+
 	elif [ "$input" == 5 ]; then
 		./access.sh "admin" "power_user"
 		printf "${BACKGROUND}"
@@ -242,4 +242,3 @@ while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]
 done
 
 printf "${DEFAULT}"
-

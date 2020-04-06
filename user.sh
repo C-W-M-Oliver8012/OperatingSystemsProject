@@ -10,10 +10,10 @@ The following code are functions that will be used
 in the main code below all of the functions.
 '
 
-YELLOW="\033[1;38;5;136;48;5;236m"
-GREEN="\033[1;38;5;34;48;5;236m"
-WHITE="\033[0;38;5;253;48;5;236m"
-BACKGROUND="\033[48;5;236m"
+YELLOW="\033[1;38;5;136;48;5;234m"
+GREEN="\033[1;38;5;34;48;5;234m"
+WHITE="\033[0;38;5;253;48;5;234m"
+BACKGROUND="\033[48;5;234m"
 DEFAULT="\033[0m"
 
 
@@ -51,4 +51,3 @@ while [ "$input" != 2 ]; do
 done
 
 printf "${DEFAULT}"
-

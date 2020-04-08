@@ -112,7 +112,7 @@ while [ "$option" != 2 ]; do
 	printf "${WHITE}   Option: ${WHITE}"
 	read option
 
-	if [ "$input" == 1 ]; then
+	if [ "$option" == 1 ]; then
 		./access.sh "$1" "$2"
 		printf "${BACKGROUND}"
 	fi

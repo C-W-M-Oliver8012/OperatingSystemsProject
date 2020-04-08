@@ -41,14 +41,13 @@ function check_for_and_create_directories
 
 	if [ ! -f "users.txt" ]; then
 		> users.txt
-		echo "admin-power_user-buasa" > users.txt
+		echo "admin-power_user-buasa-buasa" > users.txt
 	fi
 }
 
 function print_menu_header
 {
 	clear
-
 	printf "\n${YELLOW}   ===============================================\n"
 	printf "   |  ${GREEN}admin                                      ${YELLOW}|\n"
 	printf "   ===============================================\n"
@@ -68,11 +67,11 @@ function print_main_menu
 function prompt_admin_to_change_password
 {
 	while [[ ( "$input" != 1 && "$input" != 2 ) ]]; do
-
 		print_menu_header
-		printf "   |  ${WHITE}You are logged in as admin. The default    ${YELLOW}|\n"
-		printf "   |  ${WHITE}password is 'buasa'. Press 1 to change the ${YELLOW}|\n"
-		printf "   |  ${WHITE}password and 2 to logout.                  ${YELLOW}|\n"
+		printf "   |  ${WHITE}Because you are the first user of the      ${YELLOW}|\n"
+		printf "   |  ${WHITE}program, you are logged in as admin. The   ${YELLOW}|\n"
+		printf "   |  ${WHITE}default password is 'buasa'. Press 1 to    ${YELLOW}|\n"
+		printf "   |  ${WHITE}change the password and 2 to logout.       ${YELLOW}|\n"
 		printf "   ===============================================\n\n"
 
 		printf "${WHITE}   Option: ${WHITE}"
@@ -83,13 +82,12 @@ function prompt_admin_to_change_password
 function get_new_password_for_admin
 {
 	if [ "$input" == 1 ]; then
-
 		print_menu_header
 		printf "   |  ${WHITE}Please enter a new password!               ${YELLOW}|\n"
 		printf "   ===============================================\n\n"
 		printf "${WHITE}   New Password: ${WHITE}"
 		read -s password
-		echo "admin-power_user-$password" > users.txt
+		echo "admin-power_user-$password-buasa" > users.txt
 	fi
 }
 
@@ -98,8 +96,7 @@ function init_admin
 	input=0
 	current_password=$(head -n 1 "users.txt")
 
-	if [ "$current_password" == "admin-power_user-buasa" ]; then
-
+	if [ "$current_password" == "admin-power_user-buasa-buasa" ]; then
 		prompt_admin_to_change_password
 		password="buasa"
 
@@ -118,14 +115,14 @@ function create_power_user
 	read -s password
 
 	matched=0
-	while IFS='-' read user access pass; do
+	while IFS='-' read user access pass default_pass; do
 		if [[ ( "$name" == "$user" || -z "$name" || -z "$pass" ) ]]; then
 			matched=1
 		fi
 	done < users.txt
 
 	if [ "$matched" != 1 ]; then
-		echo "$name-power_user-$password" >> users.txt
+		echo "$name-power_user-$password-$password" >> users.txt
 	fi
 }
 
@@ -140,14 +137,14 @@ function create_general_user
 	read -s password
 
 	matched=0
-	while IFS='-' read user access pass; do
+	while IFS='-' read user access pass default_pass; do
 		if [[ ( "$name" == "$user" || -z "$name" || -z "$pass" ) ]]; then
 			matched=1
 		fi
 	done < users.txt
 
 	if [ "$matched" != 1 ]; then
-		echo "$name-general_user-$password" >> users.txt
+		echo "$name-general_user-$password-$password" >> users.txt
 	fi
 }
 
@@ -156,7 +153,7 @@ function list_users_and_types
 	print_menu_header
 
 	i=1
-	while IFS='-' read user access pass; do
+	while IFS='-' read user access pass default_pass; do
 		printf "   | ${WHITE}%2d) %-15s  - %-12s         ${YELLOW}|\n" "$i" "$user" "$access"
 		i=$((i+1))
 	done < users.txt
@@ -185,8 +182,8 @@ function delete_user
 	if [[ ( "$input" != 1 && ! -z "$input" ) ]]; then
 		i=1
 		while read line; do
-			if [ $input != $i ]; then
-				echo $line >> tmp_users.txt
+			if [ "$input" != "$i" ]; then
+				echo "$line" >> tmp_users.txt
 			fi
 			i=$((i+1))
 		done < users.txt

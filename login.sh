@@ -43,9 +43,9 @@ function print_menu
 
 function attempt_login
 {
-	while IFS='-' read user access pass; do
+	while IFS='-' read user access pass default_pass; do
 		if [[ ( "$1" == "$user" && "$2" == "$pass" ) ]]; then
-			priv=$access
+			priv="$access"
 			login=1
 			break
 		fi
@@ -56,8 +56,8 @@ function login_user_if_possible
 {
 	if [ "$login" == 1 ]; then
 		admin_str=$(head -n 1 users.txt)
-		IFS='-' read admin_user admin_access admin_pass <<< "$admin_str"
-		if [[ ( "$username" = "$admin_user" && "$password" = "$admin_pass" ) ]]; then
+		IFS='-' read admin_user admin_access admin_pass default_admin_pass <<< "$admin_str"
+		if [[ ( "$username" == "$admin_user" && "$password" == "$admin_pass" ) ]]; then
 			./admin.sh
 			printf "${BACKGROUND}"
 		else

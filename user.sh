@@ -17,6 +17,72 @@ BACKGROUND="\033[48;5;234m"
 DEFAULT="\033[0m"
 
 
+
+# this function is an obsolute mess BUT IT WORKS
+# DON'T TOUCH IT FOR NOW... I WILL CLEAN IT UP!!
+function check_change_password
+{
+	pass_data=""
+	matched=0
+	while IFS='-' read user access pass default_pass; do
+		if [[ ( "$1" == "$user" && "$pass" == "$default_pass" ) ]]; then
+			matched=1
+			break
+		fi
+	done < users.txt
+
+	if [ "$matched" == 1 ]; then
+		pass_changed=0
+		while [ "$pass_changed" == 0 ]; do
+			clear
+			printf "\n${YELLOW}   ===============================================\n"
+			printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
+			printf "   ===============================================\n"
+			printf "   |  ${WHITE}You have logged in with the default        ${YELLOW}|\n"
+			printf "   |  ${WHITE}password. Enter 1 to change the password   ${YELLOW}|\n"
+			printf "   |  ${WHITE}and 2 in order to logout.                  ${YELLOW}|\n"
+			printf "   ===============================================\n\n"
+			printf "${WHITE}   Option: "
+			read input
+			if [ "$input" == 1 ]; then
+				clear
+				printf "\n${YELLOW}   ===============================================\n"
+				printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
+				printf "   ===============================================\n"
+				printf "   |  ${WHITE}Please enter a new password!               ${YELLOW}|\n"
+				printf "   ===============================================\n\n"
+				printf "${WHITE}   New Password: "
+				read -s new_password
+				if [ "$new_password" != "$pass" ]; then
+					pass_data="$user-$access-$new_password-$pass"
+					pass_changed=1
+				fi
+			elif [ "$input" == 2 ]; then
+				pass_data="no_change"
+				pass_changed=2
+			fi
+		done
+	fi
+
+	if [[ ( "$pass_data" != "no_change" && "$matched" == 1 ) ]]; then
+		while IFS='-' read user access pass default_pass; do
+			if [ "$user" != "$1" ]; then
+				echo "$user-$access-$pass-$default_pass" >> tmp_users.txt
+			fi
+		done < users.txt
+
+		rm users.txt
+		while read line; do
+			echo $line >> users.txt
+		done < tmp_users.txt
+		echo "$pass_data" >> users.txt
+		rm tmp_users.txt
+		input=""
+	elif [ "$matched" == 1 ]; then
+		option=2
+	fi
+}
+
 function print_menu
 {
 	clear
@@ -37,12 +103,14 @@ for the program.
 printf "${BACKGROUND}"
 
 input=""
+option=0
+check_change_password "$1" "$2"
 
-while [ "$input" != 2 ]; do
+while [ "$option" != 2 ]; do
 
 	print_menu "$1" "$2"
 	printf "${WHITE}   Option: ${WHITE}"
-	read input
+	read option
 
 	if [ "$input" == 1 ]; then
 		./access.sh "$1" "$2"

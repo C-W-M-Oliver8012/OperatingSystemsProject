@@ -42,7 +42,8 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 			printf "   |                                             |\n"
 			i=1
 			for entry in "General_Files"/*; do
-				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$entry"
+				IFS='/' read directory file <<< "$entry"
+				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$file"
 				i=$((i+1))
 			done
 			printf "   ===============================================\n"
@@ -53,7 +54,8 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 			printf "   |                                             |\n"
 			i=1
 			for entry in "Project_Files"/*; do
-				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$entry"
+				IFS='/' read directory file <<< "$entry"
+				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$file"
 				i=$((i+1))
 			done
 			printf "   ===============================================\n"
@@ -64,7 +66,8 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 			printf "   |                                             |\n"
 			i=1
 			for entry in "Financial_Files"/*; do
-				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$entry"
+				IFS='/' read directory file <<< "$entry"
+				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$file"
 				i=$((i+1))
 			done
 			printf "   ===============================================\n"

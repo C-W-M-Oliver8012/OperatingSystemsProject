@@ -113,7 +113,7 @@ function create_power_user
 
 	matched=0
 	while IFS='-' read user access pass default_pass; do
-		if [[ ( "$name" == "$user" || -z "$name" || -z "$pass" ) ]]; then
+		if [[ ( "$name" == "$user" || -z "$name" || -z "$password" ) ]]; then
 			matched=1
 		fi
 	done < users.txt
@@ -135,7 +135,7 @@ function create_general_user
 
 	matched=0
 	while IFS='-' read user access pass default_pass; do
-		if [[ ( "$name" == "$user" || -z "$name" || -z "$pass" ) ]]; then
+		if [[ ( "$name" == "$user" || -z "$name" || -z "$password" ) ]]; then
 			matched=1
 		fi
 	done < users.txt

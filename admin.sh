@@ -24,21 +24,18 @@ function check_for_and_create_directories
 		> General_Files/test1.txt
 		> General_Files/test2.txt
 	fi
-
 	if [ ! -d "Project_Files" ]; then
 		mkdir Project_Files
 		> Project_Files/test.txt
 		> Project_Files/test1.txt
 		> Project_Files/test2.txt
 	fi
-
 	if [ ! -d "Financial_Files" ]; then
 		mkdir Financial_Files
 		> Financial_Files/test.txt
 		> Financial_Files/test1.txt
 		> Financial_Files/test2.txt
 	fi
-
 	if [ ! -f "users.txt" ]; then
 		> users.txt
 		echo "admin-power_user-buasa-buasa" > users.txt
@@ -97,10 +94,10 @@ function init_admin
 	current_password=$(head -n 1 "users.txt")
 
 	if [ "$current_password" == "admin-power_user-buasa-buasa" ]; then
-		prompt_admin_to_change_password
-		password="buasa"
-
-		get_new_password_for_admin
+		while [ -z "$password" ]; do
+			prompt_admin_to_change_password
+			get_new_password_for_admin
+		done
 	fi
 }
 
@@ -222,16 +219,12 @@ while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]
 
 	if [ "$input" == 1 ]; then
 		create_power_user
-
 	elif [ "$input" == 2 ]; then
 		create_general_user
-
 	elif [ "$input" == 3 ]; then
 		list_users_and_types
-
 	elif [ "$input" == 4 ]; then
 		delete_user
-
 	elif [ "$input" == 5 ]; then
 		./access.sh "admin" "power_user"
 		printf "${BACKGROUND}"

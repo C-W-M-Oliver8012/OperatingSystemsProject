@@ -18,6 +18,30 @@ DEFAULT="\033[0m"
 
 
 
+function print_default_password_prompt
+{
+	clear
+	printf "\n${YELLOW}   ===============================================\n"
+	printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
+	printf "   ===============================================\n"
+	printf "   |  ${WHITE}You have logged in with the default        ${YELLOW}|\n"
+	printf "   |  ${WHITE}password. Enter 1 to change the password   ${YELLOW}|\n"
+	printf "   |  ${WHITE}and 2 in order to logout.                  ${YELLOW}|\n"
+	printf "   ===============================================\n\n"
+	printf "${WHITE}   Option: "
+}
+
+function enter_new_password_prompt
+{
+	clear
+	printf "\n${YELLOW}   ===============================================\n"
+	printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
+	printf "   ===============================================\n"
+	printf "   |  ${WHITE}Please enter a new password!               ${YELLOW}|\n"
+	printf "   ===============================================\n\n"
+	printf "${WHITE}   New Password: "
+}
+
 # this function is an obsolute mess BUT IT WORKS
 # DON'T TOUCH IT FOR NOW... I WILL CLEAN IT UP!!
 function check_change_password
@@ -34,26 +58,12 @@ function check_change_password
 	if [ "$matched" == 1 ]; then
 		pass_changed=0
 		while [ "$pass_changed" == 0 ]; do
-			clear
-			printf "\n${YELLOW}   ===============================================\n"
-			printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
-			printf "   ===============================================\n"
-			printf "   |  ${WHITE}You have logged in with the default        ${YELLOW}|\n"
-			printf "   |  ${WHITE}password. Enter 1 to change the password   ${YELLOW}|\n"
-			printf "   |  ${WHITE}and 2 in order to logout.                  ${YELLOW}|\n"
-			printf "   ===============================================\n\n"
-			printf "${WHITE}   Option: "
+			print_default_password_prompt "$1" "$2"
 			read input
 			if [ "$input" == 1 ]; then
-				clear
-				printf "\n${YELLOW}   ===============================================\n"
-				printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
-				printf "   ===============================================\n"
-				printf "   |  ${WHITE}Please enter a new password!               ${YELLOW}|\n"
-				printf "   ===============================================\n\n"
-				printf "${WHITE}   New Password: "
+				enter_new_password_prompt "$1" "$2"
 				read -s new_password
-				if [ "$new_password" != "$pass" ]; then
+				if [[ ( "$new_password" != "$pass" && ! -z "$new_password" ) ]]; then
 					pass_data="$user-$access-$new_password-$pass"
 					pass_changed=1
 				fi

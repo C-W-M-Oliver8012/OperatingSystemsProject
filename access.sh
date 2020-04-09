@@ -17,9 +17,7 @@ function print_menu_header
 printf "${BACKGROUND}"
 
 if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; then
-
 	while [[ ( "$2" == "power_user" && "$input" != 4 ) || ( "$2" == "general_user" && "$input" != 3 ) ]]; do
-
 		print_menu_header "$1" "$2"
 		printf "   |  ${WHITE}Directory Options                          ${YELLOW}|\n"
 		printf "   |                                             |\n"
@@ -48,7 +46,6 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 				i=$((i+1))
 			done
 			printf "   ===============================================\n"
-
 		elif [ "$input" == 2 ]; then
 			clear
 			print_menu_header "$1" "$2"
@@ -60,7 +57,6 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 				i=$((i+1))
 			done
 			printf "   ===============================================\n"
-
 		elif [[ ( "$input" == 3 && "$2" == "power_user" ) ]]; then
 			clear
 			print_menu_header "$1" "$2"
@@ -78,9 +74,7 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 			printf "\n${WHITE}   Press enter to return to menu...${WHITE}"
 			read input
 		fi
-
 	done
-
 fi
 
 printf "${DEFAULT}"

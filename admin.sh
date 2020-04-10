@@ -63,7 +63,7 @@ function print_main_menu
 
 function prompt_admin_to_change_password
 {
-	while [[ ( "$input" != 1 && "$input" != 2 ) ]]; do
+	while [[ ( "$input" -ne 1 && "$input" -ne 2 ) ]]; do
 		print_menu_header
 		printf "   |  ${WHITE}Because you are the first user of the      ${YELLOW}|\n"
 		printf "   |  ${WHITE}program, you are logged in as admin. The   ${YELLOW}|\n"
@@ -78,7 +78,7 @@ function prompt_admin_to_change_password
 
 function get_new_password_for_admin
 {
-	if [ "$input" == 1 ]; then
+	if [ "$input" -eq 1 ]; then
 		print_menu_header
 		printf "   |  ${WHITE}Please enter a new password!               ${YELLOW}|\n"
 		printf "   ===============================================\n\n"
@@ -118,7 +118,7 @@ function create_power_user
 		fi
 	done < users.txt
 
-	if [ "$matched" != 1 ]; then
+	if [ "$matched" -ne 1 ]; then
 		echo "$name-power_user-$password-$password" >> users.txt
 	fi
 }
@@ -140,7 +140,7 @@ function create_general_user
 		fi
 	done < users.txt
 
-	if [ "$matched" != 1 ]; then
+	if [ "$matched" -ne 1 ]; then
 		echo "$name-general_user-$password-$password" >> users.txt
 	fi
 }
@@ -176,7 +176,7 @@ function delete_user
 	printf "${WHITE}   User to delete: ${WHITE}"
 	read input
 
-	if [[ ( "$input" != 1 && ! -z "$input" ) ]]; then
+	if [[ ( "$input" -ne 1 && ! -z "$input" ) ]]; then
 		i=1
 		while read line; do
 			if [ "$input" != "$i" ]; then
@@ -210,7 +210,7 @@ current_password=$(head -n 1 "users.txt")
 name=""
 password=""
 
-while [[ ( "$input" != 6 && "$current_password" != "admin-power_user-buasa" ) ]]; do
+while [[ ( "$input" -ne 6 && "$current_password" != "admin-power_user-buasa" ) ]]; do
 
 	print_menu_header
 	print_main_menu

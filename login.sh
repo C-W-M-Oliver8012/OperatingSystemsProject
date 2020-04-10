@@ -28,7 +28,6 @@ function run_admin_script_if_user_text_does_not_exit
 function print_menu_header
 {
 	clear
-
 	printf "\n${YELLOW}   ===============================================\n"
 	printf "   |  ${WHITE}Welcome to the Bash User Access System     ${YELLOW}|\n"
 	printf "   ===============================================\n"
@@ -54,7 +53,7 @@ function attempt_login
 
 function login_user_if_possible
 {
-	if [ "$login" == 1 ]; then
+	if [ "$login" -eq 1 ]; then
 		admin_str=$(head -n 1 users.txt)
 		IFS='-' read admin_user admin_access admin_pass default_admin_pass <<< "$admin_str"
 		if [[ ( "$username" == "$admin_user" && "$password" == "$admin_pass" ) ]]; then
@@ -69,7 +68,7 @@ function login_user_if_possible
 
 function check_if_user_wants_to_exit_program
 {
-	if [[ ( "$username" == 1 && "$password" == 1 ) ]]; then
+	if [[ ( "$username" -eq 1 && "$password" -eq 1 ) ]]; then
 		login=2
 	fi
 }
@@ -97,7 +96,7 @@ password=""
 priv=""
 login=0
 
-while [ "$login" != 2 ]; do
+while [ "$login" -ne 2 ]; do
 	login=0
 
 	print_menu_header

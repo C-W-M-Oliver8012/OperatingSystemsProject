@@ -21,25 +21,25 @@ DEFAULT="\033[0m"
 function print_default_password_prompt
 {
 	clear
-	printf "\n${YELLOW}   ===============================================\n"
-	printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
+	printf "\n%b   ===============================================\n" "$YELLOW"
+	printf "   |  %b%-20s : %-20s%b|\n" "$GREEN" "$1" "$2" "$YELLOW"
 	printf "   ===============================================\n"
-	printf "   |  ${WHITE}You have logged in with the default        ${YELLOW}|\n"
-	printf "   |  ${WHITE}password. Enter 1 to change the password   ${YELLOW}|\n"
-	printf "   |  ${WHITE}and 2 in order to logout.                  ${YELLOW}|\n"
+	printf "   |  %bYou have logged in with the default        %b|\n" "$WHITE" "$YELLOW"
+	printf "   |  %bpassword. Enter 1 to change the password   %b|\n" "$WHITE" "$YELLOW"
+	printf "   |  %band 2 in order to logout.                  %b|\n" "$WHITE" "$YELLOW"
 	printf "   ===============================================\n\n"
-	printf "${WHITE}   Option: "
+	printf "%b   Option: " "$WHITE"
 }
 
 function enter_new_password_prompt
 {
 	clear
-	printf "\n${YELLOW}   ===============================================\n"
-	printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
+	printf "\n%b   ===============================================\n" "$YELLOW"
+	printf "   |  %b%-20s : %-20s%b|\n" "$GREEN" "$1" "$2" "$YELLOW"
 	printf "   ===============================================\n"
-	printf "   |  ${WHITE}Please enter a new password!               ${YELLOW}|\n"
+	printf "   |  %bPlease enter a new password!               %b|\n" "$WHITE" "$YELLOW"
 	printf "   ===============================================\n\n"
-	printf "${WHITE}   New Password: "
+	printf "%b   New Password: " "$WHITE"
 }
 
 # this function is an obsolute mess BUT IT WORKS
@@ -49,27 +49,27 @@ function check_change_password
 	# find current user and check if they have changed their default password
 	pass_data=""
 	matched=0
-	while IFS='-' read user access pass default_pass; do
-		if [[ ( "$1" == "$user" && "$pass" == "$default_pass" ) ]]; then
+	while IFS='-' read -r user access pass default_pass; do
+		if [ "$1" == "$user" ] && [ "$pass" == "$default_pass" ]; then
 			matched=1
 			break
 		fi
 	done < users.txt
 
 	# give the option to change password or logout
-	if [ "$matched" -eq 1 ]; then
+	if [ "$matched" == 1 ]; then
 		pass_changed=0
-		while [ "$pass_changed" -eq 0 ]; do
+		while [ "$pass_changed" == 0 ]; do
 			print_default_password_prompt "$1" "$2"
-			read input
-			if [ "$input" -eq 1 ]; then
+			read -r input
+			if [ "$input" == 1 ]; then
 				enter_new_password_prompt "$1" "$2"
-				read -s new_password
-				if [[ ( "$new_password" != "$default_pass" && ! -z "$new_password" ) ]]; then
+				read -r -s new_password
+				if [ "$new_password" != "$default_pass" ] && [ -n "$new_password" ]; then
 					pass_data="$user-$access-$new_password-$default_pass"
 					pass_changed=1
 				fi
-			elif [ "$input" -eq 2 ]; then
+			elif [ "$input" == 2 ]; then
 				pass_data="no_change"
 				pass_changed=2
 			fi
@@ -77,21 +77,21 @@ function check_change_password
 	fi
 
 	# change the password in the file or logout
-	if [[ ( "$pass_data" != "no_change" && "$matched" -eq 1 ) ]]; then
-		while IFS='-' read user access pass default_pass; do
+	if [ "$pass_data" != "no_change" ] && [ "$matched" == 1 ]; then
+		while IFS='-' read -r user access pass default_pass; do
 			if [ "$user" != "$1" ]; then
 				echo "$user-$access-$pass-$default_pass" >> tmp_users.txt
 			fi
 		done < users.txt
 
 		rm users.txt
-		while read line; do
-			echo $line >> users.txt
+		while read -r line; do
+			echo "$line" >> users.txt
 		done < tmp_users.txt
 		echo "$pass_data" >> users.txt
 		rm tmp_users.txt
 		input=""
-	elif [ "$matched" -eq 1 ]; then
+	elif [ "$matched" == 1 ]; then
 		option=3
 	fi
 }
@@ -101,7 +101,7 @@ function change_password
 	# find current user
 	pass_data=""
 	matched=0
-	while IFS='-' read user access pass default_pass; do
+	while IFS='-' read -r user access pass default_pass; do
 		if [ "$1" == "$user" ]; then
 			matched=1
 			break
@@ -109,12 +109,12 @@ function change_password
 	done < users.txt
 
 	# prompt to change password and get new password
-	if [ "$matched" -eq 1 ]; then
+	if [ "$matched" == 1 ]; then
 		pass_changed=0
 		while [ "$pass_changed" == 0 ]; do
 			enter_new_password_prompt "$1" "$2"
-			read -s new_password
-			if [[ ( "$new_password" != "$pass" && "$new_password" != "$default_pass" && ! -z "$new_password" ) ]]; then
+			read -r -s new_password
+			if [ "$new_password" != "$pass" ] && [ "$new_password" != "$default_pass" ] && [ -n "$new_password" ]; then
 				pass_data="$user-$access-$new_password-$default_pass"
 				pass_changed=1
 			fi
@@ -122,16 +122,16 @@ function change_password
 	fi
 
 	# change the password in the file
-	if [ "$matched" -eq 1 ]; then
-		while IFS='-' read user access pass default_pass; do
+	if [ "$matched" == 1 ]; then
+		while IFS='-' read -r user access pass default_pass; do
 			if [ "$user" != "$1" ]; then
 				echo "$user-$access-$pass-$default_pass" >> tmp_users.txt
 			fi
 		done < users.txt
 
 		rm users.txt
-		while read line; do
-			echo $line >> users.txt
+		while read -r line; do
+			echo "$line" >> users.txt
 		done < tmp_users.txt
 		echo "$pass_data" >> users.txt
 		rm tmp_users.txt
@@ -141,12 +141,12 @@ function change_password
 function print_menu
 {
 	clear
-	printf "\n${YELLOW}   ===============================================\n"
-	printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
+	printf "\n%b   ===============================================\n" "$YELLOW"
+	printf "   |  %b%-20s : %-20s%b|\n" "$GREEN" "$1" "$2" "$YELLOW"
 	printf "   ===============================================\n"
-	printf "   |  ${WHITE}1) Open a directory                        ${YELLOW}|\n"
-	printf "   |  ${WHITE}2) Change password                         ${YELLOW}|\n"
-	printf "   |  ${WHITE}3) Logout                                  ${YELLOW}|\n"
+	printf "   |  %b1) Open a directory                        %b|\n" "$WHITE" "$YELLOW"
+	printf "   |  %b2) Change password                         %b|\n" "$WHITE" "$YELLOW"
+	printf "   |  %b3) Logout                                  %b|\n" "$WHITE" "$YELLOW"
 	printf "   ===============================================\n\n"
 }
 
@@ -156,24 +156,24 @@ The following code is what is actually running
 for the program.
 '
 
-printf "${BACKGROUND}"
+printf "%b" "$BACKGROUND"
 
 input=""
 option=0
 check_change_password "$1" "$2"
 
-while [ "$option" -ne 3 ]; do
+while [ "$option" != 3 ]; do
 
 	print_menu "$1" "$2"
-	printf "${WHITE}   Option: ${WHITE}"
-	read option
+	printf "%b   Option: " "$WHITE"
+	read -r option
 
-	if [ "$option" -eq 1 ]; then
+	if [ "$option" == 1 ]; then
 		./access.sh "$1" "$2"
-		printf "${BACKGROUND}"
-	elif [ "$option" -eq 2 ]; then
+		printf "%b" "$BACKGROUND"
+	elif [ "$option" == 2 ]; then
 		change_password "$1" "$2"
 	fi
 done
 
-printf "${DEFAULT}"
+printf "%b" "$DEFAULT"

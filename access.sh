@@ -9,51 +9,52 @@ DEFAULT="\033[0m"
 function print_menu_header
 {
 	clear
-	printf "\n${YELLOW}   ===============================================\n"
-	printf "   |  ${GREEN}%-20s : %-20s${YELLOW}|\n" "$1" "$2"
+	printf "\n%b   ===============================================\n" "$YELLOW"
+	printf "   |  %b%-20s : %-20s%b|\n" "$GREEN" "$1" "$2" "$YELLOW"
 	printf "   ===============================================\n"
 }
 
-printf "${BACKGROUND}"
+printf "%b" "$BACKGROUND"
 
 first_menu=1
+input=0
 
-if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; then
-	while [[ ( "$2" == "power_user" && "$input" -ne 4 ) || ( "$2" == "general_user" && "$input" -ne 3 ) ]]; do
-		if [ "$first_menu" -eq 1 ]; then
+if [ -d "Financial_Files" ] && [ -d "General_Files" ] && [ -d "Project_Files" ]; then
+	while [ "$2" == "power_user" ] && [ "$input" != 4 ] || [ "$2" == "general_user" ] && [ "$input" != 3 ]; do
+		if [ "$first_menu" == 1 ]; then
 			print_menu_header "$1" "$2"
-			printf "   |  ${WHITE}Directory Options                          ${YELLOW}|\n"
+			printf "   |  %bDirectory Options                          %b|\n" "$WHITE" "$YELLOW"
 			printf "   |                                             |\n"
-			printf "   |  ${WHITE}1) General Files                           ${YELLOW}|\n"
-			printf "   |  ${WHITE}2) Project Files                           ${YELLOW}|\n"
+			printf "   |  %b1) General Files                           %b|\n" "$WHITE" "$YELLOW"
+			printf "   |  %b2) Project Files                           %b|\n" "$WHITE" "$YELLOW"
 
 			if [ "$2" == "power_user" ]; then
-				printf "   |  ${WHITE}3) Financial Files                         ${YELLOW}|\n"
-				printf "   |  ${WHITE}4) Return to user menu                     ${YELLOW}|\n"
+				printf "   |  %b3) Financial Files                         %b|\n" "$WHITE" "$YELLOW"
+				printf "   |  %b4) Return to user menu                     %b|\n" "$WHITE" "$YELLOW"
 			elif [ "$2" == "general_user" ]; then
-				printf "   |  ${WHITE}3) Return to user menu                     ${YELLOW}|\n"
+				printf "   |  %b3) Return to user menu                     %b|\n" "$WHITE" "$YELLOW"
 			fi
 
 			printf "   ===============================================\n\n"
-			printf "${WHITE}   Option: ${WHITE}"
-			read input
+			printf "%b   Option: " "$WHITE"
+			read -r input
 		fi
 
-		if [ "$input" -eq 1 ]; then
+		if [ "$input" == 1 ]; then
 			clear
 			print_menu_header "$1" "$2"
-			printf "   |  ${WHITE}General Files                              ${YELLOW}|\n"
+			printf "   |  %bGeneral Files                              %b|\n" "$WHITE" "$YELLOW"
 			printf "   |                                             |\n"
 			i=1
 			for entry in "General_Files"/*; do
-				IFS='/' read directory file <<< "$entry"
-				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$file"
+				IFS='/' read -r directory file <<< "$entry"
+				printf "   | %b%2d) %-39s %b|\n" "$WHITE" "$i" "$file" "$YELLOW"
 				i=$((i+1))
 			done
-			printf "   | ${WHITE}%2d) Exit                                    ${YELLOW}|\n" "$i"
+			printf "   | %b%2d) Exit                                    %b|\n" "$WHITE" "$i" "$YELLOW"
 			printf "   ===============================================\n\n"
-			printf "${WHITE}   Option: "
-			read input
+			printf "%b   Option: " "$WHITE"
+			read -r input
 			i=1
 			for entry in "General_Files"/*; do
 				echo "$entry"
@@ -64,49 +65,49 @@ if [[ ( -d "Financial_Files" && -d "General_Files" && -d "Project_Files" ) ]]; t
 			done
 			clear
 			if (( "$input" < "$i" )); then
-				echo $file_to_open
-				while read line; do
+				echo "$file_to_open"
+				while read -r line; do
 					echo "$line"
 				done < "$file_to_open"
-				read exit
+				read -r exit
 			fi
 			if [ "$input" == "$i" ]; then
 				first_menu=1
-				input=""
+				input=0
 			else
 				first_menu=0
 				input=1
 			fi
-		elif [ "$input" -eq 2 ]; then
+		elif [ "$input" == 2 ]; then
 			clear
 			print_menu_header "$1" "$2"
-			printf "   |  ${WHITE}Project Files                              ${YELLOW}|\n"
+			printf "   |  %bProject Files                              %b|\n" "$WHITE" "$YELLOW"
 			printf "   |                                             |\n"
 			i=1
 			for entry in "Project_Files"/*; do
-				IFS='/' read directory file <<< "$entry"
-				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$file"
+				IFS='/' read -r directory file <<< "$entry"
+				printf "   | %b%2d) %-39s %b|\n" "$WHITE" "$i" "$file" "$YELLOW"
 				i=$((i+1))
 			done
 			printf "   ===============================================\n\n"
-			printf "${WHITE}   Option: "
-			read input
-		elif [[ ( "$input" -eq 3 && "$2" == "power_user" ) ]]; then
+			printf "%b   Option: " "$WHITE"
+			read -r input
+		elif [ "$input" == 3 ] && [ "$2" == "power_user" ]; then
 			clear
 			print_menu_header "$1" "$2"
-			printf "   |  ${WHITE}Financial Files                            ${YELLOW}|\n"
+			printf "   |  %bFinancial Files                            %b|\n" "$WHITE" "$YELLOW"
 			printf "   |                                             |\n"
 			i=1
 			for entry in "Financial_Files"/*; do
-				IFS='/' read directory file <<< "$entry"
-				printf "   | ${WHITE}%2d) %-39s ${YELLOW}|\n" "$i" "$file"
+				IFS='/' read -r directory file <<< "$entry"
+				printf "   | %b%2d) %-39s %b|\n" "$WHITE" "$i" "$file" "$YELLOW"
 				i=$((i+1))
 			done
 			printf "   ===============================================\n\n"
-			printf "${WHITE}   Option: "
-			read input
+			printf "%b   Option: " "$WHITE"
+			read -r input
 		fi
 	done
 fi
 
-printf "${DEFAULT}"
+printf "%b" "$DEFAULT"

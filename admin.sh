@@ -215,7 +215,7 @@ function delete_user
 	done < users.txt
 
 	printf "   ===============================================\n\n"
-	printf "%b   User to delete:" "$WHITE"
+	printf "%b   User to delete: " "$WHITE"
 	read -r input
 
 	if [ "$input" != 1 ] && [ -n "$input" ]; then

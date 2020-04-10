@@ -7,9 +7,9 @@ The first time the program is ran, you will automatically be logged in as admin 
 * ~~Login system~~
 * ~~Admin abilities~~
 * ~~User abilities~~
-* Access system
+* ~~Access system~~
 
-The only thing that needs functionality added to it is the access.sh file. The access.sh file gives the user the ability to open directories and files, create files, and delete files based on privilege.
+ALL FEATURES REQUIRED HAVE BEEN COMPLETED :) Now I just need to polish and fix any bugs in the program.
 
 # Colors
 I added colors to the program to make it look better. Coloring seems to work natively on linux and on Windows using the windows subsystem for linux. I am unsure if it works for Macs, but I think that it should. Let me know if it does not work on Macs.

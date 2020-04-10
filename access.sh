@@ -64,10 +64,13 @@ if [ -d "Financial_Files" ] && [ -d "General_Files" ] && [ -d "Project_Files" ];
 				i=$((i+1))
 			done
 			clear
-			if (( "$input" < "$i" )); then
-				echo "$file_to_open"
+			if (( "$input" < "$i" )) && (( "$input" > 0 )); then
+				printf "%b" "$GREEN"
+				printf "\n   %s\n\n" "$file_to_open"
+				y=1
 				while read -r line; do
-					echo "$line"
+					printf "%b%4d%b|%b %s\n" "$GREEN" "$y" "$YELLOW" "$WHITE" "$line"
+					y=$((y+1))
 				done < "$file_to_open"
 				read -r exit
 			fi
@@ -89,9 +92,36 @@ if [ -d "Financial_Files" ] && [ -d "General_Files" ] && [ -d "Project_Files" ];
 				printf "   | %b%2d) %-39s %b|\n" "$WHITE" "$i" "$file" "$YELLOW"
 				i=$((i+1))
 			done
+			printf "   | %b%2d) Exit                                    %b|\n" "$WHITE" "$i" "$YELLOW"
 			printf "   ===============================================\n\n"
 			printf "%b   Option: " "$WHITE"
 			read -r input
+			i=1
+			for entry in "Project_Files"/*; do
+				echo "$entry"
+				if [ "$input" = "$i" ]; then
+					file_to_open="$entry"
+				fi
+				i=$((i+1))
+			done
+			clear
+			if (( "$input" < "$i" )) && (( "$input" > 0 )); then
+				printf "%b" "$GREEN"
+				printf "\n   %s\n\n" "$file_to_open"
+				y=1
+				while read -r line; do
+					printf "%b%4d%b|%b %s\n" "$GREEN" "$y" "$YELLOW" "$WHITE" "$line"
+					y=$((y+1))
+				done < "$file_to_open"
+				read -r exit
+			fi
+			if [ "$input" = "$i" ]; then
+				first_menu=1
+				input=0
+			else
+				first_menu=0
+				input=1
+			fi
 		elif [ "$input" = 3 ] && [ "$2" = "power_user" ]; then
 			clear
 			print_menu_header "$1" "$2"
@@ -103,9 +133,36 @@ if [ -d "Financial_Files" ] && [ -d "General_Files" ] && [ -d "Project_Files" ];
 				printf "   | %b%2d) %-39s %b|\n" "$WHITE" "$i" "$file" "$YELLOW"
 				i=$((i+1))
 			done
+			printf "   | %b%2d) Exit                                    %b|\n" "$WHITE" "$i" "$YELLOW"
 			printf "   ===============================================\n\n"
 			printf "%b   Option: " "$WHITE"
 			read -r input
+			i=1
+			for entry in "Financial_Files"/*; do
+				echo "$file_to_open"
+				if [ "$input" = "$i" ]; then
+					file_to_open="$entry"
+				fi
+				i=$((i+1))
+			done
+			clear
+			if (( "$input" < "$i" )) && (( "$input" > 0 )); then
+				printf "%b" "$GREEN"
+				printf "\n   %s\n\n" "$file_to_open"
+				y=1
+				while read -r line; do
+					printf "%b%4d%b|%b %s\n" "$GREEN" "$y" "$YELLOW" "$WHITE" "$line"
+					y=$((y+1))
+				done < "$file_to_open"
+				read -r exit
+			fi
+			if [ "$input" = "$i" ]; then
+				first_menu=1
+				input=0
+			else
+				first_menu=0
+				input=1
+			fi
 		fi
 	done
 fi

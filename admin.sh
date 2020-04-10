@@ -21,20 +21,56 @@ function check_for_and_create_directories
 	if [ ! -d "General_Files" ]; then
 		mkdir General_Files
 		touch General_Files/test.txt
+		echo "This is a test file." >> General_Files/test.txt
+		echo "This is line 2." >> General_Files/test.txt
+		echo "This is line 3." >> General_Files/test.txt
+		echo "This is line 4." >> General_Files/test.txt
 		touch General_Files/test1.txt
+		echo "This is a test file." >> General_Files/test1.txt
+		echo "This is line 2." >> General_Files/test1.txt
+		echo "This is line 3." >> General_Files/test1.txt
+		echo "This is line 4." >> General_Files/test1.txt
 		touch General_Files/test2.txt
+		echo "This is a test file." >> General_Files/test2.txt
+		echo "This is line 2." >> General_Files/test2.txt
+		echo "This is line 3." >> General_Files/test2.txt
+		echo "This is line 4." >> General_Files/test2.txt
 	fi
 	if [ ! -d "Project_Files" ]; then
 		mkdir Project_Files
 		touch Project_Files/test.txt
+		echo "This is a test file." >> Project_Files/test.txt
+		echo "This is line 2." >> Project_Files/test.txt
+		echo "This is line 3." >> Project_Files/test.txt
+		echo "This is line 4." >> Project_Files/test.txt
 		touch Project_Files/test1.txt
+		echo "This is a test file." >> Project_Files/test1.txt
+		echo "This is line 2." >> Project_Files/test1.txt
+		echo "This is line 3." >> Project_Files/test1.txt
+		echo "This is line 4." >> Project_Files/test1.txt
 		touch Project_Files/test2.txt
+		echo "This is a test file." >> Project_Files/test2.txt
+		echo "This is line 2." >> Project_Files/test2.txt
+		echo "This is line 3." >> Project_Files/test2.txt
+		echo "This is line 4." >> Project_Files/test2.txt
 	fi
 	if [ ! -d "Financial_Files" ]; then
 		mkdir Financial_Files
 		touch Financial_Files/test.txt
+		echo "This is a test file." >> Financial_Files/test.txt
+		echo "This is line 2." >> Financial_Files/test.txt
+		echo "This is line 3." >> Financial_Files/test.txt
+		echo "This is line 4." >> Financial_Files/test.txt
 		touch Financial_Files/test1.txt
+		echo "This is a test file." >> Financial_Files/test1.txt
+		echo "This is line 2." >> Financial_Files/test1.txt
+		echo "This is line 3." >> Financial_Files/test1.txt
+		echo "This is line 4." >> Financial_Files/test1.txt
 		touch Financial_Files/test2.txt
+		echo "This is a test file." >> Financial_Files/test2.txt
+		echo "This is line 2." >> Financial_Files/test2.txt
+		echo "This is line 3." >> Financial_Files/test2.txt
+		echo "This is line 4." >> Financial_Files/test2.txt
 	fi
 	if [ ! -f "users.txt" ]; then
 		touch users.txt

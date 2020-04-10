@@ -78,7 +78,7 @@ function prompt_admin_to_change_password
 
 function get_new_password_for_admin
 {
-	if [ "$input" == 1 ]; then
+	if [ "$input" = 1 ]; then
 		print_menu_header
 		printf "   |  %bPlease enter a new password!               %b|\n" "$WHITE" "$YELLOW"
 		printf "   ===============================================\n\n"
@@ -93,14 +93,14 @@ function init_admin
 	input=0
 	current_password=$(head -n 1 "users.txt")
 
-	if [ "$current_password" == "admin-power_user-buasa-buasa" ]; then
+	if [ "$current_password" = "admin-power_user-buasa-buasa" ]; then
 		while [ -z "$password" ] && [ "$input" != 2 ]; do
 			prompt_admin_to_change_password
 			get_new_password_for_admin
 		done
 	fi
 
-	if [ "$input" == 2 ]; then
+	if [ "$input" = 2 ]; then
 		echo hello
 		input=6
 	fi
@@ -118,7 +118,7 @@ function create_power_user
 
 	matched=0
 	while IFS='-' read -r user access pass default_pass; do
-		if [ "$name" == "$user" ] || [ -z "$name" ] || [ -z "$password" ]; then
+		if [ "$name" = "$user" ] || [ -z "$name" ] || [ -z "$password" ]; then
 			matched=1
 		fi
 	done < users.txt
@@ -140,7 +140,7 @@ function create_general_user
 
 	matched=0
 	while IFS='-' read -r user access pass default_pass; do
-		if [ "$name" == "$user" ] || [ -z "$name" ] || [ -z "$password" ]; then
+		if [ "$name" = "$user" ] || [ -z "$name" ] || [ -z "$password" ]; then
 			matched=1
 		fi
 	done < users.txt
@@ -223,15 +223,15 @@ while [ "$input" != 6 ] && [ "$current_password" != "admin-power_user-buasa" ]; 
 	printf "%b   Option: " "$WHITE"
 	read -r input
 
-	if [ "$input" == 1 ]; then
+	if [ "$input" = 1 ]; then
 		create_power_user
-	elif [ "$input" == 2 ]; then
+	elif [ "$input" = 2 ]; then
 		create_general_user
-	elif [ "$input" == 3 ]; then
+	elif [ "$input" = 3 ]; then
 		list_users_and_types
-	elif [ "$input" == 4 ]; then
+	elif [ "$input" = 4 ]; then
 		delete_user
-	elif [ "$input" == 5 ]; then
+	elif [ "$input" = 5 ]; then
 		./access.sh "admin" "power_user"
 		printf "%b" "$BACKGROUND"
 	fi

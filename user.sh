@@ -50,26 +50,26 @@ function check_change_password
 	pass_data=""
 	matched=0
 	while IFS='-' read -r user access pass default_pass; do
-		if [ "$1" == "$user" ] && [ "$pass" == "$default_pass" ]; then
+		if [ "$1" = "$user" ] && [ "$pass" = "$default_pass" ]; then
 			matched=1
 			break
 		fi
 	done < users.txt
 
 	# give the option to change password or logout
-	if [ "$matched" == 1 ]; then
+	if [ "$matched" = 1 ]; then
 		pass_changed=0
-		while [ "$pass_changed" == 0 ]; do
+		while [ "$pass_changed" = 0 ]; do
 			print_default_password_prompt "$1" "$2"
 			read -r input
-			if [ "$input" == 1 ]; then
+			if [ "$input" = 1 ]; then
 				enter_new_password_prompt "$1" "$2"
 				read -r -s new_password
 				if [ "$new_password" != "$default_pass" ] && [ -n "$new_password" ]; then
 					pass_data="$user-$access-$new_password-$default_pass"
 					pass_changed=1
 				fi
-			elif [ "$input" == 2 ]; then
+			elif [ "$input" = 2 ]; then
 				pass_data="no_change"
 				pass_changed=2
 			fi
@@ -77,7 +77,7 @@ function check_change_password
 	fi
 
 	# change the password in the file or logout
-	if [ "$pass_data" != "no_change" ] && [ "$matched" == 1 ]; then
+	if [ "$pass_data" != "no_change" ] && [ "$matched" = 1 ]; then
 		while IFS='-' read -r user access pass default_pass; do
 			if [ "$user" != "$1" ]; then
 				echo "$user-$access-$pass-$default_pass" >> tmp_users.txt
@@ -91,7 +91,7 @@ function check_change_password
 		echo "$pass_data" >> users.txt
 		rm tmp_users.txt
 		input=""
-	elif [ "$matched" == 1 ]; then
+	elif [ "$matched" = 1 ]; then
 		option=3
 	fi
 }
@@ -102,16 +102,16 @@ function change_password
 	pass_data=""
 	matched=0
 	while IFS='-' read -r user access pass default_pass; do
-		if [ "$1" == "$user" ]; then
+		if [ "$1" = "$user" ]; then
 			matched=1
 			break
 		fi
 	done < users.txt
 
 	# prompt to change password and get new password
-	if [ "$matched" == 1 ]; then
+	if [ "$matched" = 1 ]; then
 		pass_changed=0
-		while [ "$pass_changed" == 0 ]; do
+		while [ "$pass_changed" = 0 ]; do
 			enter_new_password_prompt "$1" "$2"
 			read -r -s new_password
 			if [ "$new_password" != "$pass" ] && [ "$new_password" != "$default_pass" ] && [ -n "$new_password" ]; then
@@ -122,7 +122,7 @@ function change_password
 	fi
 
 	# change the password in the file
-	if [ "$matched" == 1 ]; then
+	if [ "$matched" = 1 ]; then
 		while IFS='-' read -r user access pass default_pass; do
 			if [ "$user" != "$1" ]; then
 				echo "$user-$access-$pass-$default_pass" >> tmp_users.txt
@@ -168,10 +168,10 @@ while [ "$option" != 3 ]; do
 	printf "%b   Option: " "$WHITE"
 	read -r option
 
-	if [ "$option" == 1 ]; then
+	if [ "$option" = 1 ]; then
 		./access.sh "$1" "$2"
 		printf "%b" "$BACKGROUND"
-	elif [ "$option" == 2 ]; then
+	elif [ "$option" = 2 ]; then
 		change_password "$1" "$2"
 	fi
 done

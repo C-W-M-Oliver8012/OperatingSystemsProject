@@ -68,10 +68,11 @@ function file_options_for_power_user
 		done
 	elif [ "$file_option" = 3 ]; then
 		printf "   File number above to open: "
-		read -r file_option
+		read -r file_to_open_number
 		file_loop=0
 	elif [ "$file_option" = 4 ]; then
 		file_loop=0
+		file_option=4
 	fi
 }
 
@@ -90,7 +91,7 @@ function file_options_for_general_users
 		fi
 	elif [ "$file_option" = 2 ]; then
 		printf "   File number above to open: "
-		read -r file_option
+		read -r file_to_open_number
 		file_loop=0
 	elif [ "$file_option" = 3 ]; then
 		file_loop=0
@@ -134,7 +135,7 @@ function append_line
 	if [ "$3" = "$y" ]; then
 		echo "$2" >> tmp_file.txt
 	fi
-	# append to beginning of file 
+	# append to beginning of file
 	if [ "$y" = 1 ]; then
 		echo "$2" >> tmp_file.txt
 	fi
@@ -224,7 +225,7 @@ function display_file_contents
 		num_files=1
 		for entry in "$1"/*; do
 			echo "$entry"
-			if [ "$file_option" = "$num_files" ]; then
+			if [ "$file_to_open_number" = "$num_files" ]; then
 				file_to_open="$entry"
 			fi
 			num_files=$((num_files+1))

@@ -42,15 +42,18 @@ function enter_new_password_prompt
 	printf "%b   New Password: " "$WHITE"
 }
 
-# this function is an obsolute mess BUT IT WORKS
-# DON'T TOUCH IT FOR NOW... I WILL CLEAN IT UP!!
+
 function check_change_password
 {
 	# find current user and check if they have changed their default password
 	pass_data=""
 	matched=0
+	# reads users.txt line by line and checks user credentials
 	while IFS='-' read -r user access pass default_pass; do
+		# if the user is the current user and the default password has not
+		# changed
 		if [ "$1" = "$user" ] && [ "$pass" = "$default_pass" ]; then
+			# user with unchanged password found
 			matched=1
 			break
 		fi
@@ -62,6 +65,7 @@ function check_change_password
 		while [ "$pass_changed" = 0 ]; do
 			print_default_password_prompt "$1" "$2"
 			read -r input
+			# if user wants to change password
 			if [ "$input" = 1 ]; then
 				enter_new_password_prompt "$1" "$2"
 				read -r -s new_password
@@ -69,6 +73,7 @@ function check_change_password
 					pass_data="$user-$access-$new_password-$default_pass"
 					pass_changed=1
 				fi
+			# if user wants to logout instead of changing password
 			elif [ "$input" = 2 ]; then
 				pass_data="no_change"
 				pass_changed=2
@@ -78,19 +83,25 @@ function check_change_password
 
 	# change the password in the file or logout
 	if [ "$pass_data" != "no_change" ] && [ "$matched" = 1 ]; then
+		# adds every user into a temp file except for the user being changed
 		while IFS='-' read -r user access pass default_pass; do
 			if [ "$user" != "$1" ]; then
 				echo "$user-$access-$pass-$default_pass" >> tmp_users.txt
 			fi
 		done < users.txt
 
+		# deletes users.txt file to
 		rm users.txt
+		# adds all users from temp file back into the users.txt file
 		while read -r line; do
 			echo "$line" >> users.txt
 		done < tmp_users.txt
+		# adds the current users updated credentials back to the file
 		echo "$pass_data" >> users.txt
+		# deletes temp file
 		rm tmp_users.txt
 		input=""
+	# logs user out
 	elif [ "$matched" = 1 ]; then
 		option=3
 	fi
@@ -101,8 +112,11 @@ function change_password
 	# find current user
 	pass_data=""
 	matched=0
+	# reads users.txt line by line and checks user credentials
 	while IFS='-' read -r user access pass default_pass; do
+		# if the user is the current user
 		if [ "$1" = "$user" ]; then
+			# current user found
 			matched=1
 			break
 		fi
@@ -114,8 +128,10 @@ function change_password
 		while [ "$pass_changed" = 0 ]; do
 			enter_new_password_prompt "$1" "$2"
 			read -r -s new_password
+			# if the new password is not the current pass / the default pass / null
 			if [ "$new_password" != "$pass" ] && [ "$new_password" != "$default_pass" ] && [ -n "$new_password" ]; then
 				pass_data="$user-$access-$new_password-$default_pass"
+				# breaks from loop
 				pass_changed=1
 			fi
 		done
@@ -129,11 +145,15 @@ function change_password
 			fi
 		done < users.txt
 
+		# deletes users.txt file
 		rm users.txt
+		# adds all users from temp file back into the users.txt file
 		while read -r line; do
 			echo "$line" >> users.txt
 		done < tmp_users.txt
+		# adds the current users updated credentials back to the file
 		echo "$pass_data" >> users.txt
+		# deletes temp file 
 		rm tmp_users.txt
 	fi
 }

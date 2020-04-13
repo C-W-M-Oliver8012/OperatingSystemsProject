@@ -99,6 +99,7 @@ function file_options_for_general_users
 	fi
 }
 
+# list the files in directory
 function display_and_get_file_to_open
 {
 	file_loop=1
@@ -166,6 +167,7 @@ function delete_line
 	rm tmp_file.txt
 }
 
+# prints all of the text editor options
 function print_file_edit_options
 {
 	clear
@@ -189,6 +191,7 @@ function print_file_edit_options
 	fi
 }
 
+# performs action in text editor
 function perform_file_edit_options
 {
 	if [ "$edit_option" = 1 ]; then
@@ -217,6 +220,7 @@ function perform_file_edit_options
 	fi
 }
 
+# This is the code controlling the text editor
 function display_file_contents
 {
 	edit_option=3

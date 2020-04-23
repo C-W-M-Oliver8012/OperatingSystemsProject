@@ -179,7 +179,7 @@ function print_file_edit_options
 			printf "%b%4d%b|%b %s\n" "$GREEN" "$y" "$YELLOW" "$WHITE" "$line"
 			y=$((y+1))
 		done < "$file_to_open"
-		if [ "$1" = "power_user" ] || [ "$1" = "general_user" ]; then
+		if [ "$1" = "power_user" ]; then
 			printf "\n\n%b   1) Append line     2) Delete line     3) Exit\n" "$YELLOW"
 			printf "%b   Option: " "$WHITE"
 			read -r edit_option

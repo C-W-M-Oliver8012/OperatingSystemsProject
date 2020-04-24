@@ -133,11 +133,11 @@ function append_line
 		y=$((y+1))
 	done < "$1"
 	# append to end of file
-	if [ "$3" = "$y" ]; then
+	if [ "$3" = "$y" ] && [ "$3" != 1 ]; then
 		echo "$2" >> tmp_file.txt
 	fi
 	# append to beginning of file
-	if [ "$y" = 1 ]; then
+	if [ "$y" = 1 ] || [ "$3" == 1 ]; then
 		echo "$2" >> tmp_file.txt
 	fi
 
